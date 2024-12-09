@@ -1,7 +1,7 @@
 ---
 title: "About"
 date: 2024-12-01T11:00:00+01:00
-draft: true
+draft: false
 description: "About Pine Grove Interactive"
 images: ["/images/tree.svg"]
 
