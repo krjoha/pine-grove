@@ -22,7 +22,7 @@ pagination.pagerSize = 10
 # google analytics code [UA-XXXXXXXX-X]
 googleAnalytics = ""
 # copyright description used only for seo schema
-copyright = "2024 Kristoffer Johansson | Pine Grove Interactive"
+copyright = "2025 Kristoffer Johansson | Pine Grove Interactive"
 
 # whether to use robots.txt
 enableRobotsTXT = true
@@ -58,7 +58,7 @@ enableEmoji = true
   # website title for Open Graph and Twitter Cards
   title = "Pine Grove Interactive"
   # website description for RSS, SEO, Open Graph and Twitter Cards
-  description = "Consultancy and development services - Pine Grove Interactive"
+  description = "Machine Learning Expertise - Pine Grove Interactive"
   # website images for Open Graph and Twitter Cards
   images = ["/images/tree.svg"]
 
@@ -99,11 +99,11 @@ enableEmoji = true
     # whether to show the author
     author = true
     # site creation time
-    since = 2024
+    since = 2025
     # ICP info only in China (HTML format is supported)
     icp = ""
     # license info (HTML format is supported)
-    license= '<a rel="license external nofollow noopener noreffer" href="/" target="_blank">Pine Grove Interactive</a>'
+    license= '<a rel="license external nofollow noopener noreffer" href="/about" target="_blank">Pine Grove Interactive</a>'
 
   # Section (all posts) page config
   [params.section]
@@ -586,10 +586,10 @@ enableEmoji = true
           gravatarEmail = ""
           avatarURL = "/images/tree.svg"
           title = "Pine Grove Interactive"
-          subtitle = "Consultancy and development services"
+          subtitle = "A Machine Learning Consultancy"
           typeit = true
           social = true
-          disclaimer = ""
+          disclaimer = "Get in touch with us to build for a greener future"
       [languages.en.params.social]
         GitHub = "krjoha"
         Linkedin = "kristoffer-johansson"
