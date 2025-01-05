@@ -44,6 +44,17 @@ enableEmoji = true
     url = "/posts/"
     # title will be shown when you hover on this menu link
     title = ""
+  [[menu.main]]
+    weight = 2
+    identifier = "offer"
+    # you can add extra information before the name (HTML format is supported), such as icons
+    pre = ""
+    # you can add extra information after the name (HTML format is supported), such as icons
+    post = ""
+    name = "Our Offer"
+    url = "/offer/"
+    # title will be shown when you hover on this menu link
+    title = ""
 
 [params]
   # site default theme ["auto", "light", "dark"]
@@ -58,7 +69,7 @@ enableEmoji = true
   # website title for Open Graph and Twitter Cards
   title = "Pine Grove Interactive"
   # website description for RSS, SEO, Open Graph and Twitter Cards
-  description = "Machine Learning Expertise - Pine Grove Interactive"
+  description = "AI & Data Engineering expertise"
   # website images for Open Graph and Twitter Cards
   images = ["/images/tree.svg"]
 
@@ -551,12 +562,61 @@ enableEmoji = true
   home = ["HTML", "RSS", "JSON"]
   page = ["HTML", "MarkDown"]
   section = ["HTML", "RSS"]
-  taxonomy = ["HTML", "RSS"]
+  taxonomy = []
+  taxonomyTerms = []
 
 # Multilingual
 [languages]
-  [languages.en]
+  [languages.sv]
     weight = 1
+    languageCode = "sv"
+    languageName = "Svenska"
+    hasCJKLanguage = false
+    copyright = ""
+    [languages.sv.menu]
+      [[languages.sv.menu.main]]
+        weight = 1
+        identifier = "posts"
+        pre = ""
+        post = ""
+        name = "Blogg"
+        url = "/posts/"
+        title = ""
+      [[languages.sv.menu.main]]
+        weight = 2
+        identifier = "offer"
+        pre = ""
+        post = ""
+        name = "Vårt Erbjudande"
+        url = "/offer/"
+        title = ""
+      [[languages.sv.menu.main]]
+        weight = 3
+        identifier = "about"
+        pre = ""
+        post = ""
+        name = "Om oss"
+        url = "/about/"
+        title = ""
+    [languages.sv.params]
+      [languages.sv.params.home]
+        rss = 10
+        [languages.sv.params.home.profile]
+          enable = true
+          gravatarEmail = ""
+          avatarURL = "/images/tree.svg"
+          title = "Pine Grove Interactive"
+          subtitle = "Specialister på maskininlärning"
+          typeit = true
+          social = true
+          disclaimer = "Kontakta oss för att skapa en grönare framtid tillsammans"
+      [languages.sv.params.social]
+        GitHub = "krjoha"
+        Linkedin = "kristoffer-johansson"
+        Email = "kristoffer@pgi.dev"
+        RSS = true
+  [languages.en]
+    weight = 2
     languageCode = "en"
     languageName = "English"
     hasCJKLanguage = false
@@ -572,6 +632,14 @@ enableEmoji = true
         title = ""
       [[languages.en.menu.main]]
         weight = 2
+        identifier = "offer"
+        pre = ""
+        post = ""
+        name = "Our offer"
+        url = "/offer/"
+        title = ""
+      [[languages.en.menu.main]]
+        weight = 3
         identifier = "about"
         pre = ""
         post = ""
