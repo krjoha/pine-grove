@@ -3,7 +3,7 @@
 
 We leverage our expertise in AI and data engineering to make your business more efficient. Whether you already have a data team or are just starting out, we provide the resources you need to succeed with your data projects.
 
-### Upskilling in AI & Machine Learning
+## Upskilling in AI & Machine Learning
 
 Our experts provide tailored training programs to equip you and your developers with the skills needed to work effectively with AI and machine learning. The education package offers hands-on workshops, practical guidance, and actionable insights designed to address your business needs.
 

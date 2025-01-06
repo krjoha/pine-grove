@@ -3,7 +3,7 @@
 
 Vi använder vår expertis inom AI och data engineering för att göra ditt företag mer effektivt. Oavsett om du redan har ett datateam eller precis har börjat titta på data så har vi de resurser du behöver för att lyckas med dina dataprojekt.
 
-### Kompetensutveckling inom AI & Maskininlärning
+## Kompetensutveckling inom AI & Maskininlärning
 
 Våra experter erbjuder skräddarsydda utbildningsprogram för att ge dig och dina utvecklare den kunskap och de färdigheter som behövs för att komma igång med AI och maskininlärning. Utbildningspaketet innehåller praktiska workshops, vägledning och insikter om hur potentiella områden för AI som är anpassade till just dina affärsbehov.
 
