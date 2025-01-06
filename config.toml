@@ -178,7 +178,7 @@ enableEmoji = true
       # Gravatar Email for preferred avatar in home page
       gravatarEmail = ""
       # URL of avatar shown in home page
-      avatarURL = "/images/tree.svg"
+      avatarURL = "/images/profile-pic.webp"
       # title shown in home page (HTML format is supported)
       title = ""
       # subtitle shown in home page
@@ -603,7 +603,7 @@ enableEmoji = true
         [languages.sv.params.home.profile]
           enable = true
           gravatarEmail = ""
-          avatarURL = "/images/tree.svg"
+          avatarURL = "/images/profile-pic.webp"
           title = "Pine Grove Interactive"
           subtitle = "Specialister på maskininlärning"
           typeit = true
@@ -651,7 +651,7 @@ enableEmoji = true
         [languages.en.params.home.profile]
           enable = true
           gravatarEmail = ""
-          avatarURL = "/images/tree.svg"
+          avatarURL = "/images/profile-pic.webp"
           title = "Pine Grove Interactive"
           subtitle = "A Machine Learning Consultancy"
           typeit = true
