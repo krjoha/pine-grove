@@ -562,7 +562,8 @@ enableEmoji = true
   home = ["HTML", "RSS", "JSON"]
   page = ["HTML", "MarkDown"]
   section = ["HTML", "RSS"]
-  taxonomy = []
+  taxonomy = ["HTML", "RSS"]
+  taxonomyTerm = ["HTML"]
 
 # Multilingual
 [languages]
