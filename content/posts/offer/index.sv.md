@@ -4,6 +4,7 @@ title2: "Tjänster inom AI & Data Engineering"
 date: 2025-01-05T12:00:00+01:00
 draft: false
 description: "Våra konsulter arbetar tillsammans med dig för att bygga innovativa lösningar för ett hållbart och rättvist samhälle. Ta kontakt med oss för att göra din verksamhet mer effektiv med hjälp av AI och data!"
+author_meta: false
 
 toc:
     enable: false
@@ -24,6 +25,6 @@ Effektiva data pipelines är en del viktig del som behövs för att kunna nyttja
 Genom att integrera AI i dina befintliga applikationer kan du förbättra funktionalitet och öka dess effektivitet. Vi kan även hjälpa dig att skapa helt nya applikationer som inte skulle vara möjliga att uppnå utan att utnyttja din data med hjälp av AI.
 
 ### Kontakta oss  
-[Kontakta oss](/) för att ge ditt team de verktyg och den kunskap som behövs för att lyckas med AI-initiativ!
+[Kontakta oss](/sv/) för att ge ditt team de verktyg och den kunskap som behövs för att lyckas med AI-initiativ!
 
 {{< image src="developer-in-wild.webp" caption="En utvecklare som jobbar i det vilda, genererad med Midjourney. Prompt: `A young man working on his laptop under a pine tree, back towards camera, squirrel sitting next to him, vector art, minimalist --sref https://pgi.dev/about/pine-tree.webp`" >}}
