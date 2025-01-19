@@ -1,6 +1,6 @@
 ---
-title: "AI, Maskininlärning & Data engineering tjänster"
-title2: "Tjänster inom AI & Data Engineering"
+title_seo: "AI, Maskininlärning & Data engineering tjänster"
+title: "Tjänster inom AI & Data Engineering"
 date: 2025-01-05T12:00:00+01:00
 draft: false
 description: "Våra konsulter arbetar tillsammans med dig för att bygga innovativa lösningar för ett hållbart och rättvist samhälle. Ta kontakt med oss för att göra din verksamhet mer effektiv med hjälp av AI och data!"

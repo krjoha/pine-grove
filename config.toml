@@ -22,7 +22,7 @@ pagination.pagerSize = 10
 # google analytics code [UA-XXXXXXXX-X]
 googleAnalytics = ""
 # copyright description used only for seo schema
-copyright = "2025 Kristoffer Johansson | Pine Grove Interactive"
+copyright = "2025 PGI AB "
 
 # whether to use robots.txt
 enableRobotsTXT = true
@@ -114,7 +114,7 @@ enableEmoji = true
     # ICP info only in China (HTML format is supported)
     icp = ""
     # license info (HTML format is supported)
-    license= '<a rel="license external nofollow noopener noreffer" href="/about" target="_blank">Pine Grove Interactive</a>'
+    license= '<a rel="license external nofollow noopener noreffer" href="/about" target="_blank">PGI AB</a>'
 
   # Section (all posts) page config
   [params.section]
@@ -191,7 +191,7 @@ enableEmoji = true
       disclaimer = ""
     # Home page posts
     [params.home.posts]
-      enable = false
+      enable = true
       # special amount of posts in each home posts page
       paginate = 6
   # Social config in home page

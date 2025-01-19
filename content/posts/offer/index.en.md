@@ -1,6 +1,6 @@
 ---
-title: "AI, Machine Learning (ML) & Data engineering services"
-title2: "Services in AI & Data Engineering"
+title_seo: "AI, Machine Learning (ML) & Data engineering services"
+title: "Services in AI & Data Engineering"
 date: 2025-01-05T12:00:00+01:00
 draft: false
 description: "Our consultants work with you to build innovative solutions for a sustainable and fair society. Get in touch today to make your operations more efficient using AI and ML!"
