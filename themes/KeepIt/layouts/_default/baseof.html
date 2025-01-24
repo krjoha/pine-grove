@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         {{- $h1_title := .Page.Params.title_seo | default .Page.Params.title -}}
-        <title>{{ $h1_title }} - {{ .Site.Title }}</title>
+        <title>{{ if $h1_title }}{{ $h1_title }} - {{ end }}{{ .Site.Title }}</title>
 
         {{- partial "head/meta.html" . -}}
         {{- partial "head/link.html" . -}}
