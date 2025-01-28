@@ -22,7 +22,7 @@ This is an example of an unnecessary hurdle that shouldn’t exist. The solution
 
 **Even better:**
 
-What if Acme Big Tech Inc. had an Internal Developer Platform (IDP) like Backstage from Spotify? It would make things so much easier by showing which services are running and which team is responsible for them.
+What if Acme Big Tech Inc. had an Internal Developer Platform (IDP) like [Backstage from Spotify](https://backstage.io/)? It would make things so much easier by showing which services are running and which team is responsible for them.
 
 What if the processes were designed for speed and trust, without forcing pull request reviews on everything? Instead of waiting for a review, sit down and work together! Everyone learns more, and maybe it even becomes fun to tackle technical debt.
 
