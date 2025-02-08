@@ -609,7 +609,7 @@ enableEmoji = true
           subtitle = "Specialister på maskininlärning"
           typeit = true
           social = true
-          disclaimer = "Kontakta oss för att skapa en grönare framtid tillsammans"
+          disclaimer = "Teknik som gör skillnad"
       [languages.sv.params.social]
         GitHub = "krjoha"
         Linkedin = "kristoffer-johansson"
@@ -654,10 +654,10 @@ enableEmoji = true
           gravatarEmail = ""
           avatarURL = "/images/profile-pic.webp"
           title = "Pine Grove Interactive"
-          subtitle = "A Machine Learning Consultancy"
+          subtitle = "Experts in machine learning"
           typeit = true
           social = true
-          disclaimer = "Get in touch with us to build for a greener future"
+          disclaimer = "Technology that makes a difference"
       [languages.en.params.social]
         GitHub = "krjoha"
         Linkedin = "kristoffer-johansson"

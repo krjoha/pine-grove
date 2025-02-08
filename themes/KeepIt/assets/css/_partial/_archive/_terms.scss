@@ -45,13 +45,14 @@
   align-items: center;
   box-sizing: border-box;
   margin: .25rem 0 .25rem 1.5rem;
+  overflow: hidden;
 }
 
 .archive-item-link {
-  min-width: 10%;
+  flex: 1;
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
+  white-space: nowrap;
 
   &:hover {
     color: $global-link-hover-color;
@@ -68,6 +69,7 @@
 }
 
 .archive-item-date {
+  flex-shrink: 0;
   width: 6em;
   text-align: right;
   color: $global-font-secondary-color;

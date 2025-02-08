@@ -7,6 +7,7 @@ draft: false
 author: "Kristoffer Johansson"
 authorLink: "https://www.linkedin.com/in/kristoffer-johansson/"
 description: "Utvecklarupplevelsen (DevEx) har en central roll i alla organisationer som bygger programvara. Detta oavsett om DevEx upplevs som bra eller dåligt. Ta hjälp av oss för att göra dina utvecklare gladare och mer produktiva."
+summary: "Utvecklarupplevelsen (DevEx) har en central roll i alla organisationer som bygger programvara. Detta oavsett om DevEx upplevs som bra eller dåligt."
 images: []
 
 lightgallery: false

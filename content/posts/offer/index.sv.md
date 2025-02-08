@@ -10,7 +10,7 @@ toc:
     enable: false
 ---
 
-Vi använder vår expertis inom AI och data engineering för att göra ditt företag mer effektivt. Oavsett om du redan har ett datateam eller precis har börjat titta på data så har vi de resurser du behöver för att lyckas med dina dataprojekt.
+Vi använder vår expertis inom AI och data engineering för att göra ditt företag mer effektivt. Oavsett om du redan har ett datateam eller precis har börjat titta på data så har vi de resurser du behöver för att lyckas med dina dataprojekt. <!--more-->
 
 ## Kompetensutveckling inom AI & Maskininlärning
 

@@ -6,7 +6,8 @@ lastmod: 2025-01-28T12:00:00+01:00
 draft: false
 author: "Kristoffer Johansson"
 authorLink: "https://www.linkedin.com/in/kristoffer-johansson/"
-description: "The developer experience (DevEx) plays a key role in any organization building software — whether it’s good or bad. Let us help you make your developers happier and more productive."
+description: "The developer experience (DevEx) plays a key role in any organization building software - whether it’s good or bad. Let us help you make your developers happier and more productive."
+summary: "The developer experience (DevEx) plays a key role in any organization building software - whether it’s good or bad."
 images: []
 
 lightgallery: false
