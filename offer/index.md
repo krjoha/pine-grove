@@ -1,7 +1,7 @@
 # Services in AI & Data Engineering
 
 
-We leverage our expertise in AI and data engineering to make your business more efficient. Whether you already have a data team or are just starting out, we provide the resources you need to succeed with your data projects.
+We leverage our expertise in AI and data engineering to make your business more efficient. Whether you already have a data team or are just starting out, we provide the resources you need to succeed with your data projects. <!--more-->
 
 ## Upskilling in AI & Machine Learning
 

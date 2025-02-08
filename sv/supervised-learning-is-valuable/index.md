@@ -1,7 +1,7 @@
 # Supervised learning skapar mer värden än generativ AI
 
 
-Vad ger dig större konkurrensfördelar än generativ AI, språkmodeller, RAG & agenter?
+Vad ger dig större konkurrensfördelar än generativ AI, språkmodeller, RAG & agenter? <!--more-->
 
 >**[Supervised learning](https://en.wikipedia.org/wiki/Supervised_learning)** Eller på svenska: **väglett lärande**.
 
