@@ -1,13 +1,13 @@
 ---
-title_seo: "Intro till maskininlärning: Viktiga insikter från Tech Borås utvecklarworkshop"
-title: "Kom igång med maskininlärning: Sammanfattning från Tech Borås workshop"
-date: 2025-10-29T15:00:00+01:00
-lastmod: 2025-10-29T15:00:00+01:00
+title_seo: "Maskininlärning Workshop Borås: Praktisk AI-guide för utvecklare"
+title: "Maskininlärnings workshop i Borås"
+date: 2025-08-29T15:00:00+01:00
+lastmod: 2025-08-29T15:00:00+01:00
 draft: false
 author: "Kristoffer Johansson"
 authorLink: "https://www.linkedin.com/in/kristoffer-johansson/"
-description: "Lär dig grunderna i maskininlärning från vår Tech Borås workshop. Kom igång med Kaggles introduktionskurs, förstå mönsterigenkänning och upptäck varför data är din mest värdefulla tillgång."
-summary: "En praktisk guide för att komma igång med maskininlärning, baserad på vår framgångsrika workshop på Tech Borås för utvecklare."
+description: "Praktiska insikter om maskininlärning från vår utvecklarworkshop på Högskolan i Borås. Lär dig ML-grunderna, förstå AI-hype vs verklighet, och kom igång med Python. Expert ML-konsultation i Borås."
+summary: "Viktiga insikter från vår praktiska maskininlärning workshop på Högskolan i Borås. Kom förbi AI-hypen och lär dig praktiska ML-tekniker för utvecklare."
 images: []
 
 lightgallery: false
@@ -15,28 +15,30 @@ toc:
     enable: true
 ---
 
-Maskininlärning behöver inte vara skrämmande. På vår senaste "Intro to Machine Learning" workshop på Tech Borås visade vi utvecklare den enklaste vägen att komma igång och de grundläggande koncept som betyder mest. <!--more-->
+Den 26 augusti genomförde jag den första av tre workshops på Högskolan i Borås. Målet var att introducera 25 utvecklare till maskininlärning och låta dem bygga ett gäng modeller samtidigt som vi undvek vanliga fallgropar. <!--more-->
 
-Det här inlägget delar den vägen och de viktiga koncepten, så att du kan börja din ML-resa idag.
+{{< image src="tech-boras-workshop-1.webp" caption="Maskininlärning workshop på Högskolan i Borås, 26 augusti" >}}
 
-## Dina första steg med Kaggle
+Om du missade workshopen täcker det här inlägget det material vi använde, en rekommenderad kurs och några ord om den pågående AI-hype-bubblan.
 
-Workshopen rekommenderade Kaggle som det bästa stället att börja lära sig maskininlärning. Kaggle erbjuder interaktiva kurser där du kodar direkt i webbläsaren. Ingen installation behövs.
+## Kom igång med maskininlärning på Kaggle
 
-Följ dessa steg:
+För att komma igång i en online Python-miljö utan lokal installation är Kaggle ett stabilt val. Kaggle erbjuder interaktiva kurser där du skriver kod direkt i webbläsaren. Ingen installation, ingen konfiguration.
 
-1. Registrera ett gratis konto på [kaggle.com](https://www.kaggle.com)
-2. Navigera till "Learn"-sektionen
-3. Välj kursen **"Intro to Machine Learning"**
-4. Börja koda direkt i webbläsaren
+Så här börjar du:
+
+1. Skapa ett gratis konto på [kaggle.com](https://www.kaggle.com)
+2. Gå till "Learn"-sektionen
+3. Starta kursen **"Intro to Machine Learning"**
+4. Skriv kod, kör, se resultat
 
 Direktlänk: [https://www.kaggle.com/learn/intro-to-machine-learning](https://www.kaggle.com/learn/intro-to-machine-learning)
 
-Kursen använder Python och går igenom hur du bygger din första prediktiva modell. Du lär dig genom att göra, vilket är det snabbaste sättet att förstå ML-koncept.
+Kursen använder Python och scikit-learn för att bygga prediktiva modeller. Du lär dig genom att koda, vilket enligt mig slår att enbart läsa teori.
 
-## Kodexempel: Din första modell
+## Kodexempel: En första maskininlärningsmodell
 
-Här är vad du kommer att bygga i de första lektionerna. Det här exemplet laddar husdata och skapar en beslutsträdmodell för att förutsäga huspriser:
+Kaggle-kursen går igenom hur man bygger en enkel prediktiv modell. Här är ett exempel från kursmaterialet: ladda husprisdata och träna ett beslutsträd för att förutspå huspriser.
 
 ```python
 import pandas as pd
@@ -62,56 +64,52 @@ print("The predictions are")
 print(iowa_model.predict(X.head()))
 ```
 
-Den här koden demonstrerar det grundläggande ML-arbetsflödet: ladda data, välj features, träna en modell, gör prediktioner. Kaggle-kursen förklarar varje steg i detalj.
+Detta demonstrerar det grundläggande ML-arbetsflödet: ladda data, välj features, träna en modell, gör prediktioner. Kaggle-kursen bryter ner varje steg på ett väldigt pedagogiskt sätt.
 
 ## Viktiga koncept från workshopen
 
-Det här är de grundläggande insikter som varje utvecklare behöver förstå om maskininlärning.
+Här kommer några av de grundläggande insikter som vi diskuterade under workshopen. Om du förstår och är medveten om dessa ligger du före de flesta som enbart "pratar om AI".
 
 ### Maskininlärning är mönsterigenkänning
 
-I grunden använder ML algoritmer för att hitta mönster i historisk data. Du matar algoritmen med exempel, och den lär sig att känna igen mönster som kan appliceras på ny, osedd data.
+ML-algoritmer hittar mönster i historisk data. Du matar algoritmen med exempel och den lär sig att känna igen mönster som gäller för ny, osedd data. Det skiljer sig från traditionell programmering där du istället skriver explicita regler. I ML upptäcker algoritmen reglerna från data.
 
-Det här är annorlunda än traditionell programmering, där du explicit skriver reglerna. I ML upptäcker algoritmen reglerna från data.
+### Historien upprepar sig
 
-### Grundantagandet: Historia gäller för framtiden
+ML-modeller bygger på ett viktigt antagande:
 
-ML-modeller bygger på ett kritiskt antagande: **mönstren i din historiska data kommer att gälla för framtida data**.
+{{< admonition tip "Antagande" >}}
+Mönstren i din historiska data kommer att gälla även för framtida data.
+{{< /admonition >}}
 
-Om de underliggande mönstren förändras kommer din modell att misslyckas. Det är därför ML fungerar bra för stabila domäner (förutsäga huspriser, upptäcka spam) men har svårt i snabbt föränderliga miljöer.
+När de underliggande mönstren förändras fungerar int din modell. ML fungerar bra för stabila domäner som att förutsäga huspriser eller upptäcka spam. Det fungerar sämre i snabbt föränderliga miljöer. Maskininlärning är inte magi.
 
-Att förstå det här antagandet hjälper dig att identifiera var ML kommer att fungera och var det inte kommer att fungera.
+{{< admonition warning "Kritisk regel" >}}
+Utvärdera alltid din modell på osedd data. Inga undantag.
+{{< /admonition >}}
 
-### Evaluering är allt
+Tränar du på data och sedan testar på samma data? Då mäter du memorering, inte prediktion. Använd ett testdataset för att mäta verklig prestanda. En modell som presterar bra på träningsdata men misslyckas på ny data är inte särskilt användbar.
 
-Du måste **alltid evaluera din modell på osedd data**. Det här är inte förhandlingsbart.
+### AI är överskattat
 
-Om du tränar en modell på data och testar den på samma data, mäter du hur väl modellen memorerat, inte hur väl den förutsäger. Använd en validerings- eller testuppsättning för att mäta verklig prestanda.
+AI är kraftfullt, men den pågående hypen blåser upp orimliga förväntningar. För de flesta företag löser enkel maskininlärning många fler problem än att jaga de senaste AI-trenderna.
 
-En modell som presterar bra på träningsdata men dåligt på ny data är värdelös.
+{{< admonition note "Hype-bubblan" >}}
+AI är **olönsamt för de flesta företag** och kraftigt subventionerat av riskkapital. Fokusera på att lösa riktiga problem med beprövade tekniker först.
+{{< /admonition >}}
 
-## Hype vs. verklighet: AI, ML och data
+### Data är din vallgrav
 
-Workshopen tog upp gapet mellan den nuvarande AI-hypen och den praktiska verkligheten.
+Det verkliga värdet i maskininlärning är data. Att skaffa och strukturera bra data är den svåraste delen.
 
-### Artificiell intelligens är ofta hype
+{{< admonition success "Konkurrensfördel" >}}
+Ett unikt, högkvalitativt dataset **bygger konkurrensfördelar**. Vem som helst kan träna en modell. Få företag har unik, värdefull data.
+{{< /admonition >}}
 
-AI är ett kraftfullt område, men det nuvarande surret är högt. För de flesta företag är praktisk supervised maskininlärning mer relevant än att jaga de senaste AI-trenderna.
+Investera i datainfrastruktur och datakvalitet. Det är där hållbara konkurrensfördelar finns.
 
-Verkligheten: AI är ofta **olönsamt för de flesta företag** och är för närvarande kraftigt subventionerat av riskkapital. Fokusera på att lösa riktiga problem med beprövade tekniker innan du jagar hype.
+{{< image src="participants.webp" caption="Deltagare arbetar med praktiska ML-övningar" >}}
 
-### Data är fortfarande guld
+## Maskininlärning konsultation i Borås
 
-Det verkliga värdet och den svåraste delen av maskininlärning är att skaffa och rensa bra data.
-
-En unik, högkvalitativ dataset är det som **bygger en konkurrensfördel**, inte bara modellen i sig. Vem som helst kan träna en modell. Få har unik, värdefull data.
-
-Investera i din datainfrastruktur och datakvalitet. Det är där hållbara konkurrensfördelar finns.
-
-## Börja din resa
-
-Maskininlärning är tillgängligt. Börja med [Kaggles Intro to Machine Learning-kurs](https://www.kaggle.com/learn/intro-to-machine-learning), förstå att ML är mönsterigenkänning, och kom ihåg att din data är din mest värdefulla tillgång.
-
-Workshopen visade att du inte behöver en doktorsexamen för att börja använda ML. Du behöver nyfikenhet, en vilja att lära dig genom att göra, och en förståelse för grunderna.
-
-Kom igång idag.
+Denna workshop var den första i en serie på Högskolan i Borås med fokus på praktisk AI och maskininlärning för utvecklare. Jag erbjuder AI- och data engineering tjänster för företag i Borås och i hela Sverige. Om du behöver hjälp med att implementera maskininlärning och data pipelines eller vill komma förbi AI-hypen och hitta något som faktiskt fungerar för ditt företag, hör av dig!

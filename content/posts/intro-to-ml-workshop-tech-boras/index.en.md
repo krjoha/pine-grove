@@ -1,13 +1,13 @@
 ---
-title_seo: "Intro to Machine Learning: Key Takeaways from Tech Borås Developer Workshop"
-title: "Getting Started with Machine Learning: Tech Borås Workshop Summary"
-date: 2025-10-29T15:00:00+01:00
-lastmod: 2025-10-29T15:00:00+01:00
+title_seo: "Machine Learning Workshop Borås: Practical AI Guide for Developers"
+title: "Machine Learning Workshop in Borås"
+date: 2025-08-29T15:00:00+01:00
+lastmod: 2025-08-29T15:00:00+01:00
 draft: false
 author: "Kristoffer Johansson"
 authorLink: "https://www.linkedin.com/in/kristoffer-johansson/"
-description: "Learn machine learning fundamentals from our Tech Borås workshop. Get started with Kaggle's intro course, understand pattern recognition, and discover why data is your most valuable asset."
-summary: "A practical guide to getting started with machine learning, based on our successful workshop at Tech Borås for developers."
+description: "Practical machine learning insights from our developer workshop at University of Borås. Learn ML fundamentals, understand AI hype vs. reality, and start building with Python. Expert ML consulting in Borås."
+summary: "Key takeaways from our hands-on machine learning workshop at University of Borås. Cut through the AI hype and learn practical ML techniques for developers."
 images: []
 
 lightgallery: false
@@ -15,28 +15,30 @@ toc:
     enable: true
 ---
 
-Machine learning doesn't have to be intimidating. At our recent "Intro to Machine Learning" workshop at Tech Borås, we showed developers the simplest path to get started and the fundamental concepts that matter most. <!--more-->
+On August 26, I ran the first of three workshops at the University of Borås. The objective was to introduce 25 developers to machine learning and have them build a bunch of models while avoiding common pitfalls. <!--more-->
 
-This post shares that path and those key concepts, so you can begin your ML journey today.
+{{< image src="tech-boras-workshop-1.webp" caption="Machine learning workshop at University of Borås, August 26" >}}
 
-## Your First Steps with Kaggle
+If you missed it, this post covers the material used, a recommended learning path, and some words about the current AI hype bubble.
 
-The workshop recommended Kaggle as the best place to start learning machine learning. Kaggle provides interactive courses where you code directly in your browser. No setup required.
+## Getting Started with Machine Learning using Kaggle
 
-Follow these steps:
+To get started in an online Python environment without local setup, Kaggle is a solid choice. It provides interactive courses where you write code directly in the browser. No installation, no configuration.
 
-1. Register for a free account at [kaggle.com](https://www.kaggle.com)
-2. Navigate to the "Learn" section
-3. Select the **"Intro to Machine Learning"** course
-4. Start coding directly in the browser
+Here's how to begin:
+
+1. Create a free account at [kaggle.com](https://www.kaggle.com)
+2. Go to the "Learn" section
+3. Start the **"Intro to Machine Learning"** course
+4. Write code, run it, see results
 
 Direct link: [https://www.kaggle.com/learn/intro-to-machine-learning](https://www.kaggle.com/learn/intro-to-machine-learning)
 
-The course uses Python and walks you through building your first predictive model. You'll learn by doing, which is the fastest way to understand ML concepts.
+The course uses Python and scikit-learn to build predictive models. You learn by doing, which beats reading theory.
 
-## Code Example: Your First Model
+## Code Example: Your First Machine Learning Model
 
-Here's what you'll build in the first lessons. This example loads housing data and creates a decision tree model to predict home prices:
+The Kaggle course walks through building a simple predictive model. Here's one example: loading housing data and training a decision tree to predict home prices.
 
 ```python
 import pandas as pd
@@ -62,56 +64,53 @@ print("The predictions are")
 print(iowa_model.predict(X.head()))
 ```
 
-This code demonstrates the core ML workflow: load data, select features, train a model, make predictions. The Kaggle course explains each step in detail.
+This demonstrates the basic ML workflow: load data, select features, train a model, make predictions. The Kaggle course breaks down each step.
 
 ## Key Concepts from the Workshop
 
-These are the fundamental insights every developer needs to understand about machine learning.
+These are the fundamental insights that we disussed during the workshop. If you understand these, you're ahead of most people talking about AI.
 
 ### Machine Learning is Pattern Recognition
 
-At its core, ML uses algorithms to find patterns in historical data. You feed the algorithm examples, and it learns to recognize patterns that can be applied to new, unseen data.
+ML algorithms find patterns in historical data. You feed them examples, and they learn to recognize patterns that apply to new, unseen data. This differs from traditional programming, where you write explicit rules. In ML, the algorithm discovers the rules from data.
 
-This is different from traditional programming, where you explicitly write the rules. In ML, the algorithm discovers the rules from data.
+### History Repeats itself
 
-### The Core Assumption: History Applies to the Future
+ML models rely on one important assumption: 
 
-ML models operate on a critical assumption: **the patterns in your historical data will apply to future data**.
+{{< admonition tip "Assumption" >}}
+The patterns in your historical data will apply to future data.
+{{< /admonition >}}
 
-If the underlying patterns change, your model will fail. This is why ML works well for stable domains (predicting house prices, detecting spam) but struggles in rapidly changing environments.
+When the underlying patterns change, your model fails. ML works well for stable domains like predicting house prices or detecting spam. It struggles in rapidly changing environments. It is not magic.
 
-Understanding this assumption helps you identify where ML will work and where it won't.
+{{< admonition warning "Critical Rule" >}}
+Always evaluate your model on unseen data. No exceptions.
 
-### Evaluation is Everything
+{{< /admonition >}}
 
-You must **always evaluate your model on unseen data**. This is non-negotiable.
+Train on data and test on the same data? You're measuring memorization, not prediction. Use a test set to measure real performance. A model that performs well on training data but fails on new data is worthless.
 
-If you train a model on data and test it on the same data, you're measuring how well the model memorized, not how well it predicts. Use a validation or test set to measure real performance.
+### AI is Overrated
 
-A model that performs well on training data but poorly on new data is useless.
+AI is powerful, but the current buzz outpaces reality. For most businesses, practical supervised machine learning solves more problems than chasing the latest AI trends.
 
-## Hype vs. Reality: AI, ML, and Data
+{{< admonition note "The hype bubble" >}}
+AI is **unprofitable for most companies** and heavily subsidized by venture capital. Focus on solving real problems with proven techniques first.
+{{< /admonition >}}
 
-The workshop addressed the gap between the current AI hype and practical reality.
+### Data is Your Moat
 
-### Artificial Intelligence is Often Hype
+The real value in machine learning is data. Acquiring and cleaning good data is the hardest part.
 
-AI is a powerful field, but the current buzz is high. For most businesses, practical supervised machine learning is more relevant than chasing the latest AI trends.
+{{< admonition success "Competitive Advantage" >}}
+A unique, high-quality dataset **builds a competitive moat**. Anyone can train a model. Few companies have unique, valuable data.
+{{< /admonition >}}
 
-The reality: AI is often **unprofitable for most companies** and is currently heavily subsidized by venture capital. Focus on solving real problems with proven techniques before chasing hype.
+Invest in data infrastructure and data quality. That's where sustainable competitive advantage lives.
 
-### Data is Still Gold
+{{< image src="participants.webp" caption="Participants working through hands-on ML exercises" >}}
 
-The real value and the hardest part of machine learning is acquiring and cleaning good data.
+## Machine Learning Consulting in Borås
 
-A unique, high-quality dataset is what **builds a competitive moat**, not just the model itself. Anyone can train a model. Few have unique, valuable data.
-
-Invest in your data infrastructure and data quality. That's where sustainable competitive advantage lives.
-
-## Start Your Journey
-
-Machine learning is accessible. Start with the [Kaggle Intro to Machine Learning course](https://www.kaggle.com/learn/intro-to-machine-learning), understand that ML is pattern recognition, and remember that your data is your most valuable asset.
-
-The workshop showed that you don't need a PhD to start using ML. You need curiosity, a willingness to learn by doing, and an understanding of the fundamentals.
-
-Get started today.
+This workshop was the first in a series at University of Borås focused on practical AI and machine learning for developers. I provide AI and data engineering consulting for businesses in Borås and throughout Sweden. If you need help implementing machine learning solutions or want to cut through the AI hype to find what actually works for your business, reach out.
