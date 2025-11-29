@@ -6,7 +6,7 @@ lastmod: 2025-09-10T15:00:00+01:00
 draft: false
 author: "Kristoffer Johansson"
 authorLink: "https://www.linkedin.com/in/kristoffer-johansson/"
-description: "Lär dig bygga noggranna textklassificerare med endast ett fåtal träningsexempel genom SetFit och Transformer-modeller. Praktisk handledning från Tech Borås AI Lab Workshop 2."
+description: "Lär dig bygga textklassificerare med endast ett fåtal träningsexempel genom SetFit och Transformer-modeller. Ett perfekt första AI-projekt för företag. Praktisk handledning från Tech Borås AI Lab Workshop 2."
 summary: "Workshop 2 från Tech Borås AI Lab: Bygg kraftfulla textklassificeringsmodeller med SetFit med endast 8-16 exempel per klass. Lös riktiga NLP-problem utan massiva dataset."
 images: []
 
@@ -15,65 +15,65 @@ toc:
     enable: true
 ---
 
-Den 9 september genomförde jag den andra workshopen i AI Lab-serien på Högskolan i Borås. Den här gången tacklade vi ett vanligt affärsproblem du stöter på hela tiden när du startar ett AI-projekt: Du har data, men den är omärkt. Detta inlägg visar hur man hanterar den utmaningen med few-shot learning. <!--more-->
+Den 9 september genomförde jag den andra workshopen i AI Lab-serien på Högskolan i Borås. Den här gången tacklade vi ett vanligt affärsproblem som du stöter på hela tiden när du startar ett AI-projekt: Du har data, men den är omärkt. Detta inlägg visar hur man kan hantera denna utmaning med hjälp av few-shot learning. <!--more-->
 
-Moderna NLP-verktyg som SetFit gör few-shot learning praktiskt med fungerande kod du kan köra lokalt på din egen hårdvara. Små språkmodeller som BERT-varianter är lätta nog att köra på konsument-GPU:er, vilket gör avancerad NLP tillgänglig utan molnberoende eller återkommande kostnader.
+Moderna NLP-verktyg (Natural Language Processing) som SetFit gör att few-shot learning är praktiskt ganska enkelt med kod som du kan köra lokalt på din egen hårdvara. Små språkmodeller som BERT-varianter är lätta nog att köra på konsument-GPU:er, vilket gör avancerad NLP tillgänglig för dig utan beroende på molninfrastruktur eller återkommande kostnader. Det här är ett utmärkt första AI/ML projekt för företag som vill komma igång med ett datadrivet arbetssätt!
 
-## Utmaningen: Begränsad Träningsdata
+## Utmaningen med begränsad mängd träningsdata
 
-Textklassificering löser verkliga affärsproblem. Sortera supportärenden efter prioritet. Upptäck skräppost. Dirigera kundförfrågningar till rätt avdelning. Analysera sentiment i produktrecensioner.
+Textklassificering löser verkliga affärsproblem. För att nämna några, du kan: sortera supportärenden efter prioritet, filtrera bort skräppost, dirigera kundförfrågningar till rätt avdelning, analysera sentiment (vad folk tycker) i produktrecensioner
 
-Ett traditionellt ML-tillvägagångssätt kräver tusentals märkta exempel. Så du behöver någon som manuellt märker "skräppost" eller "inte skräppost" för 5 000+ e-postmeddelanden innan träningen börjar. Det kan vara dyrt och långsamt, vilket betyder att de flesta organisationer inte har tusentals förmärkta exempel liggande.
+Ett traditionellt tillvägagångssätt för maskininlärning kräver tusentals märkta exempel i ett så kallat dataset. Det betyder att du behöver någon som manuellt märker upp 5 000+ e-postmeddelanden som "skräppost" eller "inte skräppost" innan träningen av en modell kan börjar. Det kan vara dyrt och långsamt (och tråkigt) vilket betyder att de flesta organisationer inte har tusentals förmärkta exempel liggandes.
 
-Det är här SetFit kommer in: den använder kraftfulla förtränade transformer-modeller som vi finjusterar på så få som 2 exempel per klass.
+Det är här SetFit-metoden kommer in: den använder kraftfulla förtränade transformer-modeller som vi finjusterar på så lite som två exempel per klass. Mycket lättare att fixa än 5000 exempel!
 
-## Hur Transformers Förändrade NLP
+## Hur Transformers förändrade NLP
 
 Transformer-modeller som BERT revolutionerade naturlig språkbehandling genom att förstå ordkontext. Till skillnad från äldre metoder som behandlar ord som isolerade tokens, fångar BERT betydelse baserat på omgivande ord.
 
-Betrakta dessa meningar:
+Ta en titt på dessa meningar:
 - "Han cyklade till jobbet."
 - "Han körde sin bil till jobbet."
 - "Peter bestämde sig för att ta cykeln till stranden."
 
-BERT förstår att "cyklade" och "cykeln" relaterar till samma koncept, medan "körde sin bil" representerar ett annat transportsätt. Denna kontextuella förståelse är vad som gör modern NLP kraftfull. Och HuggingFace är fyllt med dessa små, förtränade BERT-modeller som redan kan mycket om vår värld. Vi behöver bara tillhandahålla några exempel på vår uppgift för att få utmärkt prestanda!
+BERT förstår att "cyklade" och "cykeln" relaterar till samma koncept, medan "körde sin bil" representerar ett annat transportsätt. Denna kontextuella förståelse är vad som gör modern NLP kraftfull. Och det som är extra bra är att det finns open-source plattformar som [HuggingFace](https://huggingface.co/) som är fyllt med dessa små, förtränade BERT-modeller som redan kan mycket om vår värld. Vi behöver bara tillhandahålla några exempel på vår uppgift för att träna om modellerna till att bli bra på det vi vill.
 
-## Förstå Semantisk Likhet i Text
+## Förstå semantisk likhet i text
 
-Kontext spelar roll för likhet. Huruvida två meningar är "lika" beror på vad du mäter:
+I vilken kontext du läser en text spelar roll för konceptet "likhet". Huruvida två meningar är "lika" beror helt och hållet på vad det är du mäter. Om vi till exempel tittar från perspektivet kollektivtrafik så kanske vi är intresserade av att veta vilket transportmedel det är som nämnts i texten. Då kan vi föresetälla oss att exempel kan paras ihop på det här sättet:  
 
-**Negativt par** (olika transport):
+**Negativt par** (olika transportmedel):
 - "Han cyklade till jobbet."
 - "Han körde sin bil till jobbet."
 
-**Positivt par** (samma transport):
+**Positivt par** (samma transportmedel):
 - "Han cyklade till jobbet."
 - "Peter bestämde sig för att ta cykeln till stranden."
 
-**Negativt par** (olika transport):
+**Negativt par** (olika transportmedel):
 - "Peter bestämde sig för att ta cykeln till stranden."
 - "Han körde sin bil till jobbet."
 
-Transformers lär sig dessa kontextuella relationer från massiva textkorpusar under förträning. Det är här SetFit blir praktiskt.
+Men om vi istället är intresserade av att veta vart någon är på väg, då skulle vi behöva para ihop exemplen på ett helt annat sätt. Det här är viktigt eftersom att transformer-modeller lär sig dessa kontextuella relationer från massiva dataset när de tränades för första gången. Det betyder att modellerna har sett data som kanske inte överensstämmer exakt med vad det är du vill mäta! Och det är här som SetFit kommer in i bilden.
 
 ## SetFit: Few-Shot Learning för Textklassificering
 
-SetFit kombinerar förtränade Transformer-modeller med effektiv finjustering. Du kan uppnå hög noggrannhet med endast 2-16 märkta exempel per klass.
+SetFit kombinerar förtränade Transformer-modeller tillsammans med en effektiv finjustering på ditt problem utifrån det perspektiv du vill anama. Det vill säga är det intressant att veta transportmedel eller destination? Och tack vare SetFit kan vi uppnå väldigt hög noggrannhet med endast 2-16 märkta exempel.
 
 SetFit fungerar i två steg:
 
 1. **Kontrastiv inlärning**: Träna på meningspar för att lära sig vilka exempel som är lika och vilka som är olika
 2. **Klassificeringshuvud**: Träna en enkel klassificerare ovanpå de inlärda inbäddningarna
 
-Detta tillvägagångssätt utnyttjar kunskapen som redan finns inbakad i förtränade modeller. Du lär inte modellen språk från grunden. Du lär den din specifika klassificeringsuppgift med hjälp av den språkförståelse den redan har.
+Att göra det på detta sättet utnyttjar den stora kunskapen som redan finns inbakad i transformers-modeller. Du lär inte modellen språk och koncept från grunden. Istället så lär du den din specifika klassificeringsuppgift med hjälp av språkförståelsen som modellen redan har.
 
-Detta ger oss snabba, lätta, produktionsklara textklassificerare tränade på en bråkdel av den data traditionella metoder kräver.
+Det ger oss snabba, lätta, produktionsklara textklassificerare som är tränade på en bråkdel av den data som traditionella metoder kräver.
 
-## Bygga en Textklassificerare med SetFit
+## Bygga en textklassificerare med SetFit
 
 Detta exempel är baserat på workshop-repositoriet: [github.com/krjoha/ai-lab-setfit](https://github.com/krjoha/ai-lab-setfit)
 
-Den fullständiga notebook:en demonstrerar det kompletta arbetsflödet. Här är kärnimplementationen:
+Om du vill se hela exemplet kan du titta i en av de notebooks i repositoriet. Här är ett kodexempel därifrån:
 
 ### Installation
 
@@ -135,30 +135,22 @@ predictions = model.predict([
 print(predictions)
 ```
 
-### Vad Denna Kod Gör
+### Vad denna kod gör
 
-1. **Dataset-laddning**: Ladda Amazon Massive Intent-datasetet med 60 olika intent-klasser på svenska
+1. **Dataset-inläsning**: Ladda Amazon Massive Intent-datasetet med 60 olika intent-klasser på svenska
 2. **Few-shot sampling**: Sampla bara 1 exempel per klass (60 totalt exempel från 11 514 tillgängliga)
 3. **Modellinitiering**: Ladda en förtränad flerspråkig inbäddningsmodell
 4. **Träning**: Tränaren genererar meningspar och finjusterar modellen
 5. **Utvärdering**: Testa noggrannhet på 2 974 osedda exempel
-6. **Förutsägelse**: Klassificera nya svenska röstassistent-kommandon
+6. **Prediktion**: Klassificera nya svenska röstassistent-kommandon
 
-Med bara 60 exempel totalt (1 per klass) uppnår denna modell meningsfull noggrannhet på intent-klassificering. Traditionella tillvägagångssätt skulle behöva tusentals exempel per klass för att uppnå liknande resultat.
+Med endast 60 exempel totalt (1 per klass) så når denna modell en tillräckligt hög noggrannhet för att bli användbar på så kallad "avsiktsklassificering". Traditionella tillvägagångssätt skulle som sagt behöva tusentals exempel per klass för att uppnå liknande resultat.
 
-## Varför Few-Shot Learning Spelar Roll
+## Köra lokalt med GPU
 
-Paradigmet har skiftat. Förtränade Transformer-modeller innehåller språkförståelse inlärd från miljarder ord. SetFit låter dig utnyttja denna kunskap och anpassa den till din specifika uppgift med minimal märkt data.
+Små språkmodeller som BERT är lätta nog att köra på konsument-GPU:er. Till skillnad från stora språkmodeller kräver små modeller som `modernbert-embed-base` endast några få gigabyte GPU-minne.
 
-Du behöver inte massiva dataset längre. Du behöver rätt tillvägagångssätt.
-
-## Köra Lokalt med GPU
-
-Små språkmodeller som BERT är lätta nog att köra på konsument-GPU:er. Till skillnad från massiva språkmodeller kräver modeller som `modernbert-embed-base` endast några få gigabyte GPU-minne.
-
-Träning av Transformer-modeller behöver GPU-acceleration. Även med SetFits effektivitet är CPU-träning långsam och opraktisk. Men små modeller körs bra på de flesta moderna GPU:er.
-
-Kontrollera din GPU-tillgänglighet:
+Träning av Transformer-modeller behöver GPU-acceleration. Även med SetFits effektivitet är CPU-träning ibland långsam och opraktisk. Därför är det bra att nyttja din datorns GPU, om det finns en sådan. Det kan du kontrollera genom att köra:
 
 ```bash
 # Verifiera att NVIDIA GPU upptäcks
@@ -168,17 +160,17 @@ nvidia-smi
 # PyTorch kommer automatiskt upptäcka och använda MPS (Metal Performance Shaders)
 ```
 
-Om du har en NVIDIA GPU med CUDA-stöd eller en Macbook med Apple Silicon kommer PyTorch att använda hårdvaruacceleration automatiskt. Träning på 60 exempel tar sekunder till minuter istället för timmar på CPU.
+Om du har en NVIDIA GPU med CUDA-stöd eller en Macbook med Apple Silicon kommer PyTorch att använda hårdvaruacceleration automatiskt. Träningskoden här ovanför med 60 exempel tar ett par sekunder istället för flera timmar med endast CPU.
 
 ### Lokal vs Molnutveckling
 
 Att köra lokalt ger dig kontroll. Inga sessions-timeouts. Inga slumpmässiga frånkopplingar. Arbeta direkt med lokala dataset. Din miljö består mellan sessioner.
 
-Om du inte har lokal GPU-åtkomst tillhandahåller Kaggle gratis GPU-notebooks som ett alternativ.
+Men om du inte har lokal GPU-åtkomst så tillhandahåller Kaggle gratis GPU-notebooks.
 
 ### Alternativ: Kaggle Notebooks
 
-Kaggle erbjuder gratis GPU-åtkomst genom sin notebook-miljö. Detta kräver telefonverifiering för att förhindra missbruk, men ger dig en T4 GPU för träning.
+Kaggle erbjuder gratis GPU i deras notebook-miljö. Men det kräver ett registrerat konto + telefonverifiering för att förhindra missbruk. I utbyte får du tillgång till en Nvidia T4 GPU. 
 
 **Telefonverifiering:**
 1. Logga in på ditt konto på [kaggle.com/settings](https://www.kaggle.com/settings)
@@ -196,19 +188,17 @@ Kaggle erbjuder gratis GPU-åtkomst genom sin notebook-miljö. Detta kräver tel
 3. Klistra in: `pip install setfit`
 4. Klicka **Run**, sedan **Save**
 
-Workshop-notebook:en är tillgänglig på Kaggle med dessa beroenden förkonfigurerade.
+Det finns en version av workshop-notebook:en på Kaggle med dessa paket förkonfigurerade.
 
-## Kom Igång med Few-Shot NLP
+## Kom igång med few-shot NLP
 
-Modern NLP med Transformer-modeller är kraftfull. Verktyg som SetFit gör det praktiskt för verkliga problem där märkt data är begränsad.
+SetFit gör det möjligt att lösa riktiga affärsproblem med NLP utan att behöva tusentals märkta exempel. Eftersom förtränade transformer-modeller redan förstår språk så behöver du bara lära dem din specifika uppgift. Det kräver betydligt mindre data än att träna från grunden. Ett utmärk första projekt!
 
-Förtränade modeller förstår redan språk. Du lär dem din specifika uppgift, inte språket i sig. Detta kräver betydligt mindre data än att träna från grunden.
-
-Vill du prova själv? Klona workshop-repositoriet och träna din första few-shot klassificerare:
+Vill du testa själv? Klona workshop-repositoriet och träna din första few-shot klassificerare:
 
 **Repository**: [github.com/krjoha/ai-lab-setfit](https://github.com/krjoha/ai-lab-setfit)
 
-Du kan ha en fungerande textklassificerare igång på under 10 minuter.
+Du kan ha en fungerande textklassificerare igång på under 10 minuter. Och det är gratis att köra lokalt om du har en GPU i din dator!
 
 ## NLP-konsulting i Borås
 

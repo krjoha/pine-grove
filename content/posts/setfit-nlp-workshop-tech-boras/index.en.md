@@ -6,7 +6,7 @@ lastmod: 2025-09-10T15:00:00+01:00
 draft: false
 author: "Kristoffer Johansson"
 authorLink: "https://www.linkedin.com/in/kristoffer-johansson/"
-description: "Learn how to build accurate text classifiers with just a handful of training examples using SetFit and Transformer models. Practical tutorial from Tech Borås AI Lab Workshop 2."
+description: "Learn how to build text classifiers with just a handful of training examples using SetFit and Transformer models. A perfect first AI project for businesses. Practical tutorial from Tech Borås AI Lab Workshop 2."
 summary: "Workshop 2 from Tech Borås AI Lab: Build powerful text classification models with SetFit using only 8-16 examples per class. Solve real NLP problems without massive datasets."
 images: []
 
@@ -15,19 +15,19 @@ toc:
     enable: true
 ---
 
-On September 9, I ran the second workshop in the AI Lab series at University of Borås. This time we tackled a common business problem that you run into all the time when starting an AI project: You have the data, but it is unlabeled. This post shows how to handle that with few-shot learning. <!--more-->
+On September 9, I ran the second workshop in the AI Lab series at University of Borås. This time we tackled a common business problem that you run into all the time when starting an AI project: You have the data, but it is unlabeled. This post shows how to handle that challenge with few-shot learning. <!--more-->
 
-Modern NLP tools like SetFit make few-shot learning practical with working code you can run locally on your own hardware. Small language models like BERT variants are lightweight enough to run on consumer GPUs, making advanced NLP accessible without cloud dependency or recurring costs.
+Modern NLP (Natural Language Processing) tools like SetFit make few-shot learning practical with code you can run locally on your own hardware. Small language models like BERT variants are lightweight enough to run on consumer GPUs, making advanced NLP accessible without cloud infrastructure dependency or recurring costs. This is an excellent first AI/ML project for companies wanting to get started with data-driven work!
 
-## The Challenge: Limited Training Data
+## The challenge of limited training data
 
-Text classification solves real business problems. Sort support tickets by priority. Detect spam. Route customer inquiries to the right department. Analyze sentiment in product reviews.
+Text classification solves real business problems. To mention a few, you can: sort support tickets by priority, filter out spam, route customer inquiries to the right department, analyze sentiment (what people think) in product reviews.
 
-A traditional ML approach requires thousands of labeled examples. So you need someone to manually tag "spam" or "not spam" for 5,000+ emails before training begins. That can be expensive and slow, which means most organizations don't have thousands of pre-labeled examples sitting around.
+A traditional machine learning approach requires thousands of labeled examples in a so-called dataset. That means you need someone to manually label 5,000+ emails as "spam" or "not spam" before training a model can begin. That can be expensive and slow (and boring), which means most organizations don't have thousands of pre-labeled examples sitting around.
 
-This is where SetFit comes in: it utilizes powerful pre-trained transformer models that we fine-tune on as few as 2 examples per class.
+This is where the SetFit method comes in: it uses powerful pre-trained transformer models that we fine-tune on as few as two examples per class. Much easier to manage than 5,000 examples!
 
-## How Transformers Changed NLP
+## How Transformers changed NLP
 
 Transformer models like BERT revolutionized natural language processing by understanding word context. Unlike older methods that treat words as isolated tokens, BERT captures meaning based on surrounding words.
 
@@ -36,44 +36,44 @@ Consider these sentences:
 - "He drove his car to work."
 - "Peter decided to take his bike to the beach."
 
-BERT understands that "biked" and "bike" relate to the same concept, while "drove his car" represents a different mode of transport. This contextual understanding is what makes modern NLP powerful. And HuggingFace is filled with these small, pre-trained BERT models that already knows a lot about our world. We just need to provide a few examples of our task to get excellent performance!
+BERT understands that "biked" and "bike" relate to the same concept, while "drove his car" represents a different mode of transport. This contextual understanding is what makes modern NLP powerful. And what's extra good is that there are open-source platforms like [HuggingFace](https://huggingface.co/) filled with these small, pre-trained BERT models that already know a lot about our world. We just need to provide a few examples of our task to retrain the models to become good at what we want.
 
-## Understanding Semantic Similarity in Text
+## Understanding semantic similarity in text
 
-Context matters for similarity. Whether two sentences are "similar" depends on what you're measuring:
+The context in which you read a text matters for the concept of "similarity". Whether two sentences are "similar" depends entirely on what you're measuring. If we look from the perspective of public transportation, we might be interested in knowing which mode of transport is mentioned in the text. Then we can imagine that examples might be paired like this:
 
-**Negative pair** (different transport):
+**Negative pair** (different modes of transport):
 - "He biked to work."
 - "He drove his car to work."
 
-**Positive pair** (same transport):
+**Positive pair** (same mode of transport):
 - "He biked to work."
 - "Peter decided to take his bike to the beach."
 
-**Negative pair** (different transport):
+**Negative pair** (different modes of transport):
 - "Peter decided to take his bike to the beach."
 - "He drove his car to work."
 
-Transformers learn these contextual relationships from massive text corpora during pre-training. This is where SetFit becomes practical.
+But if we're interested in knowing where someone is going, we would need to pair the examples in a completely different way. This is important because transformer models learn these contextual relationships from massive datasets when they were initially trained. That means the models have seen data that might not match exactly what you want to measure! And this is where SetFit comes in.
 
 ## SetFit: Few-Shot Learning for Text Classification
 
-SetFit combines pre-trained Transformer models with efficient fine-tuning. You can achieve high accuracy with just 2-16 labeled examples per class.
+SetFit combines pre-trained Transformer models with efficient fine-tuning on your problem from the perspective you want to adopt. That is, is it interesting to know the mode of transport or the destination? And thanks to SetFit, we can achieve very high accuracy with just 2-16 labeled examples.
 
 SetFit works in two stages:
 
 1. **Contrastive learning**: Train on sentence pairs to learn which examples are similar and which are different
 2. **Classification head**: Train a simple classifier on top of the learned embeddings
 
-This approach leverages the knowledge already baked into pre-trained models. You're not teaching the model language from scratch. You're teaching it your specific classification task using the language understanding it already has.
+Doing it this way leverages the vast knowledge already baked into transformer models. You're not teaching the model language and concepts from scratch. Instead, you're teaching it your specific classification task using the language understanding the model already has.
 
-This gives us fast, lightweight, production-ready text classifiers trained on a fraction of the data traditional methods require.
+This gives us fast, lightweight, production-ready text classifiers trained on a fraction of the data that traditional methods require.
 
-## Building a Text Classifier with SetFit
+## Building a text classifier with SetFit
 
 This example is based on the workshop repository: [github.com/krjoha/ai-lab-setfit](https://github.com/krjoha/ai-lab-setfit)
 
-The full notebook demonstrates the complete workflow. Here's the core implementation:
+If you want to see the full example, you can look at one of the notebooks in the repository. Here's a code example from there:
 
 ### Installation
 
@@ -135,7 +135,7 @@ predictions = model.predict([
 print(predictions)
 ```
 
-### What This Code Does
+### What this code does
 
 1. **Dataset loading**: Load Amazon Massive Intent dataset with 60 different intent classes in Swedish
 2. **Few-shot sampling**: Sample just 1 example per class (60 total examples from 11,514 available)
@@ -144,21 +144,13 @@ print(predictions)
 5. **Evaluation**: Test accuracy on 2,974 unseen examples
 6. **Prediction**: Classify new Swedish voice assistant commands
 
-With just 60 examples total (1 per class), this model achieves meaningful accuracy on intent classification. Traditional approaches would need thousands of examples per class to achieve similar results.
+With just 60 examples total (1 per class), this model achieves sufficiently high accuracy to become useful for so-called "intent classification". As mentioned, traditional approaches would need thousands of examples per class to achieve similar results.
 
-## Why Few-Shot Learning Matters
+## Running locally with GPU
 
-Pre-trained Transformer models contain language understanding learned from billions of words. SetFit lets you leverage this knowledge and adapt it to your specific task with minimal labeled data.
+Small language models like BERT are lightweight enough to run on consumer GPUs. Unlike large language models, models like `modernbert-embed-base` require only a few gigabytes of GPU memory.
 
-You don't need massive datasets anymore. You need the right approach.
-
-## Running Locally with GPU
-
-Small language models like BERT are lightweight enough to run on consumer GPUs. Unlike massive language models, models like `modernbert-embed-base` require only a few gigabytes of GPU memory.
-
-Training Transformer models needs GPU acceleration. Even with SetFit's efficiency, CPU training is slow and impractical. But small models run well on most modern GPUs.
-
-Check your GPU availability:
+Training Transformer models needs GPU acceleration. Even with SetFit's efficiency, CPU training can sometimes be slow and impractical. So it's good to use your computer's GPU if there is one. You can check that by running:
 
 ```bash
 # Verify NVIDIA GPU is detected
@@ -168,17 +160,17 @@ nvidia-smi
 # PyTorch will automatically detect and use MPS (Metal Performance Shaders)
 ```
 
-If you have an NVIDIA GPU with CUDA support or a Macbook with Apple Silicon, PyTorch will use hardware acceleration automatically. Training on 60 examples takes seconds to minutes instead of hours on CPU.
+If you have an NVIDIA GPU with CUDA support or a Macbook with Apple Silicon, PyTorch will use hardware acceleration automatically. The training code above with 60 examples takes a few seconds instead of several hours with only CPU.
 
 ### Local vs Cloud Development
 
 Running locally gives you control. No session timeouts. No random disconnects. Work directly with local datasets. Your environment persists between sessions.
 
-If you don't have local GPU access, Kaggle provides free GPU notebooks as an alternative.
+But if you don't have local GPU access, Kaggle provides free GPU notebooks.
 
 ### Alternative: Kaggle Notebooks
 
-Kaggle offers free GPU access through their notebook environment. This requires phone verification to prevent abuse, but gives you a T4 GPU for training.
+Kaggle offers free GPU in their notebook environment. But it requires a registered account + phone verification to prevent abuse. In exchange, you get access to an Nvidia T4 GPU.
 
 **Phone verification:**
 1. Log into your account at [kaggle.com/settings](https://www.kaggle.com/settings)
@@ -196,19 +188,17 @@ Kaggle offers free GPU access through their notebook environment. This requires 
 3. Paste: `pip install setfit`
 4. Click **Run**, then **Save**
 
-The workshop notebook is available on Kaggle with these dependencies pre-configured.
+There's a version of the workshop notebook on Kaggle with these packages pre-configured.
 
-## Get Started with Few-Shot NLP
+## Get started with few-shot NLP
 
-Tools like SetFit make it practical for real-world problems where labeled data is scarce.
-
-Pre-trained models already understand language. You're teaching them your specific task, not language itself. This requires far less data than training from scratch.
+SetFit makes it possible to solve real business problems with NLP without needing thousands of labeled examples. Because pre-trained transformer models already understand language, you just need to teach them your specific task. This requires far less data than training from scratch. An excellent first project!
 
 Want to try it yourself? Clone the workshop repository and train your first few-shot classifier:
 
 **Repository**: [github.com/krjoha/ai-lab-setfit](https://github.com/krjoha/ai-lab-setfit)
 
-You can have a working text classifier running in under 10 minutes.
+You can have a working text classifier running in under 10 minutes. And it's free to run locally if you have a GPU in your computer!
 
 ## NLP Consulting in Borås
 
