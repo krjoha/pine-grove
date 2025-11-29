@@ -1,6 +1,6 @@
 ---
 title_seo: "Maskininlärning Workshop Borås: Praktisk AI-guide för utvecklare"
-title: "Maskininlärnings workshop i Borås"
+title: "Maskininlärningsworkshop i Borås"
 date: 2025-08-29T15:00:00+01:00
 lastmod: 2025-08-29T15:00:00+01:00
 draft: false

@@ -1,5 +1,5 @@
 ---
-title_seo: "Träna Textklassificerare med 8 Exempel: SetFit Few-Shot Learning Tutorial"
+title_seo: "Träna Textklassificerare med få Exempel: SetFit Few-Shot Learning Tutorial"
 title: "Kraftfull NLP med SetFit och Few-Shot Learning"
 date: 2025-09-10T15:00:00+01:00
 lastmod: 2025-09-10T15:00:00+01:00
@@ -16,6 +16,8 @@ toc:
 ---
 
 Den 9 september genomförde jag den andra workshopen i AI Lab-serien på Högskolan i Borås. Den här gången tacklade vi ett vanligt affärsproblem som du stöter på hela tiden när du startar ett AI-projekt: Du har data, men den är omärkt. Detta inlägg visar hur man kan hantera denna utmaning med hjälp av few-shot learning. <!--more-->
+
+{{< image src="tech-boras-workshop-2.webp" caption="Workshop om Transformers och SetFit på Högskolan i Borås, 9 september" >}}
 
 Moderna NLP-verktyg (Natural Language Processing) som SetFit gör att few-shot learning är praktiskt ganska enkelt med kod som du kan köra lokalt på din egen hårdvara. Små språkmodeller som BERT-varianter är lätta nog att köra på konsument-GPU:er, vilket gör avancerad NLP tillgänglig för dig utan beroende på molninfrastruktur eller återkommande kostnader. Det här är ett utmärkt första AI/ML projekt för företag som vill komma igång med ett datadrivet arbetssätt!
 
@@ -200,6 +202,8 @@ Vill du testa själv? Klona workshop-repositoriet och träna din första few-sho
 
 Du kan ha en fungerande textklassificerare igång på under 10 minuter. Och det är gratis att köra lokalt om du har en GPU i din dator!
 
-## NLP-konsulting i Borås
+{{< image src="ceo.webp" caption="Kristoffer Johansson, föreläsare och skapare av AI Lab konceptet på Tech Borås" >}}
 
-Denna workshop var en del av AI Lab-serien på Högskolan i Borås, fokuserad på praktisk AI och NLP för utvecklare. Jag tillhandahåller AI- och datateknikkonsulting för företag i Borås och i hela Sverige. Om du behöver hjälp med att implementera NLP-lösningar eller vill utforska few-shot learning för ditt användningsfall, hör av dig.
+## NLP & AI-konsult i Borås
+
+Denna workshop var en del av AI Lab-serien på Högskolan i Borås, fokuserad på praktisk AI och NLP för utvecklare. Jag tillhandahåller AI- och data engineer konsulting för företag i Borås och i hela Sverige. Om du behöver hjälp med att implementera NLP-lösningar eller vill utforska few-shot learning för ditt användningsfall, hör av dig.

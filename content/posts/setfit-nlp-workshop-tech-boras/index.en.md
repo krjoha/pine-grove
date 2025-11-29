@@ -17,6 +17,8 @@ toc:
 
 On September 9, I ran the second workshop in the AI Lab series at University of Borås. This time we tackled a common business problem that you run into all the time when starting an AI project: You have the data, but it is unlabeled. This post shows how to handle that challenge with few-shot learning. <!--more-->
 
+{{< image src="tech-boras-workshop-2.webp" caption="Workshop om Transformers och SetFit på Högskolan i Borås, 9 september" >}}
+
 Modern NLP (Natural Language Processing) tools like SetFit make few-shot learning practical with code you can run locally on your own hardware. Small language models like BERT variants are lightweight enough to run on consumer GPUs, making advanced NLP accessible without cloud infrastructure dependency or recurring costs. This is an excellent first AI/ML project for companies wanting to get started with data-driven work!
 
 ## The challenge of limited training data
@@ -200,6 +202,8 @@ Want to try it yourself? Clone the workshop repository and train your first few-
 
 You can have a working text classifier running in under 10 minutes. And it's free to run locally if you have a GPU in your computer!
 
-## NLP Consulting in Borås
+{{< image src="ceo.webp" caption="Kristoffer Johansson, lecturer and create of the AI Lab concept at Tech Borås" >}}
+
+## NLP & AI Consulting in Borås
 
 This workshop was part of the AI Lab series at University of Borås, focused on practical AI and NLP for developers. I provide AI and data engineering consulting for businesses in Borås and throughout Sweden. If you need help implementing NLP solutions or want to explore few-shot learning for your use case, reach out.
