@@ -1,4 +1,4 @@
-# Maskininlärnings workshop i Borås
+# Maskininlärningsworkshop i Borås
 
 
 Den 26 augusti genomförde jag den första av tre workshops på Högskolan i Borås. Målet var att introducera 25 utvecklare till maskininlärning och låta dem bygga ett gäng modeller samtidigt som vi undvek vanliga fallgropar. <!--more-->
