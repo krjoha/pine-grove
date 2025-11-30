@@ -44,7 +44,7 @@ At **medium and large companies**, data scientists build models but struggle to 
 
 When organizations try to scale their ML work, they hit a wall. Literally.
 
-{{< image src="throw-over-fence-diagram.webp" caption="The 'throw it over the fence' workflow: data scientists and engineers work in isolation" >}}
+{{< image src="throw-over-fence-diagram.webp" caption="The 'throw it over the fence' workflow: data scientists and engineers work in isolation. Image credits [swirlai.com](https://www.newsletter.swirlai.com/p/evolving-maturity-of-mlops-stack)" >}}
 
 Look at the diagram above. On the left, the data scientist works in Jupyter, connected to the data warehouse. They analyze data, preprocess it, train a model, validate it. At the end of this pipeline sits **Model Handover** (step 1).
 
@@ -57,7 +57,7 @@ The model that achieved 95% accuracy in the notebook gets 60% in production. Why
 
 - **Different data distributions**: Training used last month's data, production sees today's data
 - **Missing preprocessing**: The notebook had 10 cells of data cleaning that never got documented
-- **Dependency mismatches**: Model trained with scikit-learn 1.2, production runs 1.0
+- **Dependency mismatches**: Model trained with scikit-learn 1.4, production runs 1.0
 - **No monitoring**: When accuracy drops, nobody notices for weeks
 {{< /admonition >}}
 
@@ -69,7 +69,7 @@ Documentation doesn't fix this. READMEs get outdated. Comments get ignored. What
 
 The solution replaces the wall with shared infrastructure. Instead of two isolated environments, you build automated pipelines that connect data, training, and deployment.
 
-{{< image src="production-mlops-architecture.webp" caption="Production MLOps architecture with automated pipelines and centralized metadata tracking" >}}
+{{< image src="production-mlops-architecture.webp" caption="Production MLOps architecture with automated pipelines and centralized metadata tracking. Image credits [swirlai.com](https://www.newsletter.swirlai.com/p/evolving-maturity-of-mlops-stack)" >}}
 
 The diagram shows a production ML environment. Three automated pipelines replace manual handoffs: **Data Engineering** (warehouse to curated data), **ML Training** (preprocessing through validation), and **Deployment** (registry to production).
 
