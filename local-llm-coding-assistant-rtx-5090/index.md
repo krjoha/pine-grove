@@ -155,8 +155,8 @@ I also experimented with MCP servers and custom skills in OpenCode. I installed 
 
 The thinking tokens were streaming very slowly. When I actually read them, the model was spending its entire budget searching for tools that were never loaded. I used OpenCode's `/export` command to dump the trace, confirmed the mismatch, and replaced the AGENTS.md with one matching my actual tool set. Reasoning got roughly 50% faster. On the Gemma 4 31B that took responses from 1.5 minutes down to around 45 seconds.
 
-{{< admonition type="note" title="Read what your agent is thinking" open=true >}}
-With local models you can see thinking tokens stream in real time. If the output feels slow, read what the model is reasoning about. Nonsense or loops usually mean a mismatch in the system prompt or tool definitions. Use `/export` to dump the full trace and clean up the noise.
+{{< admonition type="note" title="OpenCode's /export command" open=true >}}
+If responses feel slow, use `/export` to dump the full conversation trace including thinking tokens. You can see exactly what the model is reasoning about. Nonsense or loops usually point to a mismatch in the system prompt or tool definitions.
 {{< /admonition >}}
 
 ## Wrapping Up
