@@ -38,7 +38,7 @@ On paper this model is hard to beat at its size. Google positions it as "optimiz
 
 {{< image src="benchmark.webp" caption="Open-source LLM Pareto frontier. Gemma 4 variants sit near the top. Source: [LM Arena](https://arena.ai/leaderboard/text). See also the [Gemma 4 model card](https://deepmind.google/models/gemma/gemma-4/)." >}}
 
-Benchmarks only tell part of the story though. You need to test on your own use case. In my testing, code quality was consistently the best of the three models I evaluated. But at 64 tokens per second and a max context of 90K tokens on 32GB VRAM, it is too slow for interactive coding on a single RTX 5090. The MoE variant solves this, but with more GPU power the dense model would be a strong pick.
+Benchmarks only tell part of the story though. You need to test on your own use case. In my testing, code quality was consistently the best of the three models I evaluated. But at 64 tokens per second and a max context of 88K tokens on 32GB VRAM, it is too slow for interactive coding on a single RTX 5090. The MoE variant solves this, but with more GPU power the dense model would be a strong pick.
 
 ### Gemma 4 26B-A4B (MoE)
 
@@ -50,11 +50,11 @@ Initially I had trouble with tool calling. The model would generate text *about*
 
 All models use [Unsloth](https://unsloth.ai/) Q4_K_XL quantizations. Unsloth gives us dynamic quantization which is key to running these models on VRAM-constrained setups. These are numbers for my hardware, with my workloads. Your results will differ depending on context size and GPU.
 
-| Model | Type | Active Params | Gen&nbsp;tok/s | Max Context | VRAM Used | Tool Calling | KV q4_1 Penalty |
+| Model | Type | Active Params | Gen tok/s | Max Context | VRAM Used | Tool Calling | KV q4_1 Penalty |
 |---|---|---|---|---|---|---|---|
-| Gemma 4 31B | Dense | 31B | 64 | 90K | 30.9 GB | Works | -16% |
+| Gemma 4 31B | Dense | 31B | 64 | 88K | 30.9 GB | Works | -16% |
 | **Gemma 4 26B-A4B** | **MoE** | **4B** | **186** | **256K** | **25.1 GB** | **Works** | **-19%** |
-| Qwen 3.5 35B-A3B | MoE | 3B | 188 | 131K | 29.4 GB | Works | 0% |
+| Qwen 3.5 35B-A3B | MoE | 3B | 188 | 128K | 29.4 GB | Works | 0% |
 
 {{< admonition type="tip" title="KV cache quantization" open=true >}}
 KV cache quantization (`q4_1`) compresses the key-value cache that grows with context length. It lets you fit more context into VRAM.
