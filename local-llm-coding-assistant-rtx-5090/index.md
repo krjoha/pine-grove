@@ -48,9 +48,9 @@ Initially I had trouble with tool calling. The model would generate text *about*
 
 ## Benchmark
 
-All models use [Unsloth](https://unsloth.ai/) Q4_K_XL quantizations. Unsloth gives us dynamic quantization which is key to running these models on VRAM-constrained setups. Without it, fitting 30B+ models on consumer GPUs at usable quality would be more of a hassle. These are numbers for my hardware, with my workloads. Your results will differ depending on context size and GPU.
+All models use [Unsloth](https://unsloth.ai/) Q4_K_XL quantizations. Unsloth gives us dynamic quantization which is key to running these models on VRAM-constrained setups. These are numbers for my hardware, with my workloads. Your results will differ depending on context size and GPU.
 
-| Model | Type | Active Params | Gen (tok/s) | Max Context | VRAM Used | Tool Calling | KV q4_1 Penalty |
+| Model | Type | Active Params | Gen&nbsp;tok/s | Max Context | VRAM Used | Tool Calling | KV q4_1 Penalty |
 |---|---|---|---|---|---|---|---|
 | Gemma 4 31B | Dense | 31B | 64 | 90K | 30.9 GB | Works | -16% |
 | **Gemma 4 26B-A4B** | **MoE** | **4B** | **186** | **256K** | **25.1 GB** | **Works** | **-19%** |
@@ -64,11 +64,11 @@ Gemma 4 variants lose 16-19% generation speed with it enabled. Qwen 3.5 35B-A3B 
 
 ## Winner: Gemma 4 26B-A4B
 
-Gemma 4 26B-A4B is a 26B parameter MoE model with 4B active parameters per token. At 186 tok/s it is fast enough for interactive coding, and the code quality stays close to the dense 31B. With the full 256K context fitting in 25.1 GB of VRAM, there is plenty of headroom on the card for other things, like [Infinity](https://github.com/michaelfeil/infinity) serving encoder models alongside it. Qwen 3.5 35B-A3B is a strong runner-up with slightly faster generation, but Gemma's strong multilingual support and the higher code quality from 4B active parameters give it the edge in my daily use.
+Gemma 4 26B-A4B is a 26B parameter MoE model with 4B active parameters per token. At 186 tok/s it is fast enough for interactive coding, and the code quality stays close to the dense 31B. With the full 256K context fitting in 25 GB of VRAM, there is plenty of headroom on the card for other things, like [Infinity](https://github.com/michaelfeil/infinity) serving encoder models alongside it. Qwen 3.5 35B-A3B is a strong runner-up with similar fast generation, but Gemma's strong multilingual support and the higher code quality from 4B active parameters give it the edge in my daily use.
 
 ## llama.cpp Server
 
-llama.cpp runs in a Debian 13 LXC container with GPU passthrough. If you are new to llama.cpp, [Unsloth's llama.cpp guide](https://unsloth.ai/docs/models/gemma-4#llama.cpp-guide) is a good starting point.
+I run the inference server in a Debian 13 LXC container with GPU passthrough. [Unsloth's guide](https://unsloth.ai/docs/models/gemma-4#llama.cpp-guide) is a good starting point if you want to set up llama.cpp yourself.
 
 **Gemma 4 26B-A4B (thinking mode):**
 
@@ -105,10 +105,10 @@ llama-server \
 ```
 
 {{< admonition type="info" title="Key flags explained" open=true >}}
-- `--chat-template-kwargs '{"enable_thinking":true}'`: Activates chain-of-thought reasoning. The model reasons step by step before answering.
+- `--chat-template-kwargs '{"enable_thinking":true}'`: Activates chain-of-thought reasoning.
 - `--cache-type-k q4_1`: Quantizes KV cache keys. Increases context capacity. Free on Qwen, costly on Gemma (see benchmark table).
 - `--min-p 0.00`: Disables min-p sampling. Qwen 3.5 recommendation.
-- `-ngl 999`: Offload all layers to GPU. The Q4 quantized model fits comfortably in 32GB.
+- `-ngl 999`: Offload all layers to GPU. If you have less VRAM, you can offload to CPU.
 {{< /admonition >}}
 
 ## OpenCode Configuration
@@ -141,7 +141,7 @@ Save this to `~/.config/opencode/opencode.json`:
 }
 ```
 
-The `baseURL` points to the llama.cpp server. `apiKey` is `"EMPTY"` since the local server has no auth. Match the `context` limit to the server's `--ctx-size`.
+The `baseURL` points to the llama.cpp server. Match the `context` limit to the server's `--ctx-size`.
 
 ## Lessons from MCP and AGENTS.md
 
@@ -172,4 +172,4 @@ If something feels off, use `/export` to dump the full conversation trace includ
 
 My biggest surprise was how much the details matter: at first Gemma 4 tool calling did not work at all because I had an old version of llama.cpp. A KV cache flag that was working great on one architecture ended up costing 19% on another. And a mismatched AGENTS.md file can waste half your thinking budget.
 
-Gemma 4 26B-A4B earns the daily driver spot. 186 tok/s, 256K context, solid tool calling, and 7GB of VRAM to spare.
+Local models won't replace frontier APIs anytime soon, but a single consumer GPU can now run a genuinely useful coding assistant. That was not the case a year ago.
