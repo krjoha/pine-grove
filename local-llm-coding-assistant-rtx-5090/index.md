@@ -1,7 +1,7 @@
 # Building a Local LLM Coding Assistant on an RTX 5090
 
 
-I run a Proxmox server in my office with an RTX 5090 and wanted to find out if Gemma 4 could be my daily driver for local code assistance. I spent Easter Saturday testing models, breaking tool calling, and tuning llama.cpp configs. Gemma 4 did not make the cut, at least not yet. Qwen 3.5 35B-A3B did. Here is what happened. <!--more-->
+I run a Proxmox server in my office with an RTX 5090 and wanted to find out if Gemma 4 could be my daily driver for local code assistance. I spent a day testing models, breaking tool calling, and tuning llama.cpp configs. Gemma 4 did not make the cut, at least not yet. Qwen 3.5 35B-A3B did. Here is what happened. <!--more-->
 
 {{< image src="hero-server.webp" caption="The Proxmox server with a watercooled RTX 5090. 32GB VRAM for local inference." >}}
 
@@ -16,21 +16,21 @@ I run a Proxmox server in my office with an RTX 5090 and wanted to find out if G
 | Host | Proxmox |
 | Inference | llama.cpp with CUDA in a Debian 13 LXC container |
 
-The goal was to see what works on consumer hardware. I already use Claude Code daily and it is excellent, but I wanted to explore what is possible when you run everything on your own hardware. Privacy is a nice bonus, and so is never hitting a rate limit. 32GB of VRAM fits quantized 30B+ models entirely on the card. Enough for single-user inference at full speed.
+The goal was to see what works on consumer hardware. I already use Claude Code daily and it is excellent, but I wanted to explore what is possible when you run everything on your own hardware and not only be reliant on cloud providers. Privacy is a nice bonus, and so is never hitting a rate limit. With 32GB of VRAM available it's the quantized 30B+ models that currently hit the sweet spot, so follow along to see where I ended up!
 
 ## OpenCode: The Client
 
-[OpenCode](https://github.com/opencode-ai/opencode) is an open-source terminal coding assistant. Feature-wise it is close to Claude Code, and being open source means the pace of development is impressive. Where it really shines is customization: custom providers, skills, permissions, and MCP servers are all configurable. It speaks the OpenAI-compatible API, which is what makes this whole setup work. You point OpenCode at a llama.cpp server and it treats it like any other backend.
+[OpenCode](https://github.com/anomalyco/opencode) is an open-source terminal coding assistant. Feature-wise it is close to Claude Code, and being open source means the pace of development is decided by the community. It's quite popular at around 138k stars at the time of writing this. Where OpenCode really shines is customization. Custom providers, skills, permissions, MCP servers are all configurable. It speaks the OpenAI-compatible API, which is what makes this whole setup work. You can point OpenCode at a llama.cpp server and it treats it like any other backend.
 
 {{< image src="opencode-screenshot.webp" caption="OpenCode running in the terminal with a local Qwen 3.5 backend." >}}
 
 ## Evaluating Gemma 4
 
-Gemma 4 landed with two variants that fit on the RTX 5090 at Q4 quantization: a dense 31B model and a Mixture-of-Experts (MoE) 26B model. Both support multimodal input and thinking mode. I tested both as coding assistants on a small Python side project, doing code development, editing, and tool calling.
+Gemma 4 landed with two variants that fit on the RTX 5090 at Q4 quantization: a dense 31B model and a Mixture-of-Experts (MoE) 26B model. Both support multimodal input and thinking mode. I tested both as coding assistants on a small Python side project: writing code, editing files, calling tools.
 
 ### Gemma 4 31B (Dense)
 
-On paper, this model is hard to beat at its size. Google positions it as "optimized for consumer GPUs", which is exactly what I was looking for. It supports 140 languages, has native function calling, and the benchmarks look promising: LiveCodeBench v6 at 80.0% and tau2-bench (agentic tool use) at 86.4%.
+On paper, this model is hard to beat at its size. Google positions it as "optimized for consumer GPUs", which is exactly what I was looking for. It supports 140 languages and has native function calling. The benchmarks look promising: LiveCodeBench v6 at 80.0% and tau2-bench (agentic tool use) at 86.4%.
 
 {{< image src="gemma4-benchmarks.webp" caption="Gemma 4 benchmark comparison. Source: [Google DeepMind](https://deepmind.google/models/gemma/gemma-4/)" >}}
 
@@ -62,23 +62,19 @@ These are numbers from my hardware, with my workloads. Your results will differ 
 | Gemma 4 26B-A4B | MoE | 4B | 186 | 256K | 25.1 GB | Broken | -19% |
 | **Qwen 3.5 35B-A3B** | **MoE** | **3B** | **188** | **131K** | **29.4 GB** | **Works** | **0%** |
 
-{{< admonition type="tip" title="KV cache quantization matters more than you think" open=true >}}
+{{< admonition type="tip" title="KV cache quantization" open=true >}}
 KV cache quantization (`q4_1`) compresses the key-value cache that grows with context length. It lets you fit more context into VRAM.
 
-Gemma 4 variants lose 16-19% generation speed with it enabled. Qwen 3.5 35B-A3B shows **zero penalty**. That means you can push context as high as VRAM allows without sacrificing speed. Always benchmark KV cache quantization on your specific model.
+Gemma 4 variants lose 16-19% generation speed with it enabled. Qwen 3.5 35B-A3B shows **zero penalty**. That means you can push context higher without sacrificing speed.
 {{< /admonition >}}
 
 ## The Winner: Qwen 3.5 35B-A3B
 
-Qwen 3.5 35B-A3B is a 35B parameter MoE model with 3B active parameters per token. It matches the Gemma MoE on speed (188 tok/s) and handles tool calling correctly. The key differentiator is the zero speed penalty from KV cache quantization. I run it at 131K context which uses 29.4 GB of VRAM and leaves some headroom on the card.
+Qwen 3.5 35B-A3B is a 35B parameter MoE model with 3B active parameters per token. It matches the Gemma MoE on speed (188 tok/s) and handles tool calling correctly. The key differentiator is the zero speed penalty from KV cache quantization and handling complex tool calling which the Gemma 4 MoE currently fails at. I run it at 131K context which uses 29.4 GB of VRAM and leaves some headroom on the card (like running [Infinity](https://github.com/michaelfeil/infinity) with some fun encoder models!)
 
-Thinking mode is supported via Jinja templates. I keep it enabled for coding tasks where step-by-step reasoning helps, and disable it when I want faster responses for simpler tasks.
+## llama.cpp Server
 
-## The Setup
-
-### llama.cpp Server
-
-llama.cpp runs in the Debian 13 LXC container with GPU passthrough and serves models via an OpenAI-compatible API. Each model gets its own port.
+llama.cpp runs in the Debian 13 LXC container with GPU passthrough and serves models via an OpenAI-compatible API. Each model gets its own port. If you are new to llama.cpp, [Unsloth's llama.cpp guide](https://unsloth.ai/docs/models/gemma-4#llama.cpp-guide) is a good starting point.
 
 **Qwen 3.5 35B-A3B (thinking mode):**
 
@@ -88,9 +84,11 @@ llama-server \
   --ctx-size 131072 \
   --cache-type-k q4_1 \
   --temp 0.6 \
+  --top-p 0.95 \
   --top-k 20 \
   --min-p 0.00 \
-  --jinja \
+  --presence-penalty 0.0 \
+  --repeat-penalty 1.0 \
   --chat-template-kwargs '{"enable_thinking":true}' \
   --host 0.0.0.0 \
   --port 8001 \
@@ -104,22 +102,22 @@ llama-server \
   --model gemma-4-31B-it-UD-Q4_K_XL.gguf \
   --ctx-size 90112 \
   --top-k 64 \
-  --jinja \
   --chat-template-kwargs '{"enable_thinking":true}' \
   --host 0.0.0.0 \
   --port 8002 \
   -ngl 999
 ```
 
+Gemma 4 required some extra work in llama.cpp to get tool calling right. The model's format is different enough that a [specialized parser](https://github.com/ggml-org/llama.cpp/pull/21418) was added to handle it. If you are running Gemma 4, make sure you are on a recent build.
+
 {{< admonition type="info" title="Key flags explained" open=true >}}
-- `--jinja`: Enables Jinja2 chat templates. Required for tool calling support.
-- `--chat-template-kwargs '{"enable_thinking":true}'`: Activates chain-of-thought reasoning. The model shows its work before answering.
+- `--chat-template-kwargs '{"enable_thinking":true}'`: Activates chain-of-thought reasoning. The model shows its work before answering. Jinja2 chat templates are enabled by default in recent llama.cpp builds, which is required for this to work.
 - `--cache-type-k q4_1`: Quantizes KV cache keys. Dramatically increases context capacity. Free on Qwen, costly on Gemma.
 - `--min-p 0.00`: Disables min-p sampling. Qwen 3.5 recommendation.
 - `-ngl 999`: Offload all layers to GPU. The Q4 quantized model fits comfortably in 32GB.
 {{< /admonition >}}
 
-### OpenCode Configuration
+## OpenCode Configuration
 
 Save this to `~/.config/opencode/opencode.json`:
 
@@ -153,16 +151,12 @@ The `baseURL` points to the llama.cpp server. `apiKey` is `"EMPTY"` since the lo
 
 ## Lessons from MCP and AGENTS.md
 
-I also experimented with MCP servers and custom skills in OpenCode.
+I also experimented with MCP servers and custom skills in OpenCode. I installed an MCP server where I was on the standalone subscription, not the full suite. The server shipped with an `AGENTS.md` describing all tools in the full product, including dozens my subscription did not have.
 
-I installed an MCP server from a provider where I was on their standalone subscription, not the full suite. The server came with an `AGENTS.md` file that described all the tools available in the full product, including dozens of tools my subscription did not include. The model had no idea about this mismatch.
-
-I noticed something was off because the thinking tokens were streaming very slowly. When I actually read what the model was thinking about, it was nonsense. It was spending its entire thinking budget searching for tools that were never loaded, reasoning about how to call them, and getting confused when they did not exist.
-
-I used OpenCode's `/export` command to dump the full conversation trace and confirmed the mismatch. The fix was straightforward: replace the AGENTS.md with one that only describes the tools actually available. The result was roughly 50% faster reasoning. On the Gemma 4 31B that meant going from 1.5 minute responses down to around 45 seconds, which made a real difference in usability.
+The thinking tokens were streaming very slowly. When I actually read them, the model was spending its entire budget searching for tools that were never loaded. I used OpenCode's `/export` command to dump the trace, confirmed the mismatch, and replaced the AGENTS.md with one matching my actual tool set. Reasoning got roughly 50% faster. On the Gemma 4 31B that took responses from 1.5 minutes down to around 45 seconds.
 
 {{< admonition type="note" title="Read what your agent is thinking" open=true >}}
-With local models you can see the thinking tokens stream in real time. If the output feels slow, read what the model is actually reasoning about. If it is nonsense or going in circles, there is likely a mismatch in the system prompt or tool definitions. OpenCode's `/export` command dumps the full trace so you can pinpoint exactly where things go wrong. Less noise in the prompt means fewer wasted tokens.
+With local models you can see thinking tokens stream in real time. If the output feels slow, read what the model is reasoning about. Nonsense or loops usually mean a mismatch in the system prompt or tool definitions. Use `/export` to dump the full trace and clean up the noise.
 {{< /admonition >}}
 
 ## Wrapping Up
