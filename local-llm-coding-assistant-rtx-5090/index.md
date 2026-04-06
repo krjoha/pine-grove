@@ -16,13 +16,15 @@ I run a server in my office with an RTX 5090 and I wanted to find out if Gemma 4
 | Host | Proxmox |
 | Inference | llama.cpp with CUDA in a Debian 13 LXC container |
 
-My goal was to see what works on consumer hardware. I already use Claude Code daily and it is excellent, but I want to be less dependent on cloud providers and see what works on my own hardware. Privacy is a nice bonus, and never hitting a rate limit is even nicer. With 32GB of VRAM available it's the quantized 30B+ models that currently hit the sweet spot.
+I use Claude Code daily and it is excellent, but I want to be less dependent on cloud providers and also see what works on my own hardware. Privacy is a bonus, and unlimited usage without rate limits or throttling is hard to beat. I don't expect these smaller models to match frontier APIs, but they can still be useful. With 32GB of VRAM the quantized 30B+ models hit the sweet spot.
 
 ## OpenCode
 
 [OpenCode](https://github.com/anomalyco/opencode) is an open-source terminal coding assistant. Feature-wise it is close to Claude Code, and being open source means the pace of development is decided by the community. OpenCode is quite popular with around 138k stars at the time of writing this. What I really like about OpenCode is the customization. Custom providers, skills, permissions, MCP servers are all there of course. But you can also tweak the TUI a bit more than with other tools. It speaks the OpenAI-compatible API, which means you can point OpenCode at a llama.cpp server and it treats it like any other backend. Or to any provider of your choice (I have been trying out [Berget AI](https://berget.ai/), a Swedish provider, more on that in a future post).
 
-{{< image src="opencode.gif" caption="OpenCode running in the terminal. Source: [OpenCode.ai](https://opencode.ai/)" >}}
+<img src="opencode.gif" alt="OpenCode running in the terminal">
+
+*OpenCode running in the terminal. Source: [OpenCode.ai](https://opencode.ai/)*
 
 ## Evaluating Gemma 4
 
