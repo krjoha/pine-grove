@@ -34,7 +34,7 @@ Gemma 4 landed with two variants that fit on the RTX 5090 at Q4 quantization: a 
 
 ### Gemma 4 31B (Dense)
 
-On paper this model is hard to beat at its size. Google positions it as "optimized for consumer GPUs", which is exactly what I was looking for. It supports 140 languages, has native function calling and the benchmarks look promising: LiveCodeBench v6 at 80.0% and tau2-bench (agentic tool use) at 86.4%.
+On paper this model is hard to beat at its size. Google positions it as "optimized for consumer GPUs", which is exactly what I was looking for. It supports 140 languages, has native function calling and the benchmarks look promising.
 
 {{< image src="benchmark.webp" caption="Open-source LLM Pareto frontier. Gemma 4 variants sit near the top. Source: [LM Arena](https://arena.ai/leaderboard/text). See also the [Gemma 4 model card](https://deepmind.google/models/gemma/gemma-4/)." >}}
 
