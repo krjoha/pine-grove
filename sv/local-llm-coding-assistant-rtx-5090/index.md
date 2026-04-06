@@ -22,11 +22,7 @@ Jag använder Claude Code dagligen och tycker det är riktigt bra. Men jag vill 
 
 [OpenCode](https://github.com/anomalyco/opencode) är en open-source kodassistent. Funktionsmässigt ligger den nära Claude Code. Att den är open source innebär också att utvecklingstakten bestäms av communityn. Med 138k stjärnor på github och 850 commiters får den ändå anses ha ett starkt sådant! En ska jag verkligen gillar med OpenCode är anpassningsbarheten. Du kan ha egna providers, skills, behörigheter, MCP-servrar förstås. Men man kan också tweaka TUI:t mer än med andra verktyg. Den är OpenAI API kompatibel vilket gör att du kan peka OpenCode mot typ vilken backend som helst. Till exempel en llama.cpp-server. Eller mot valfri molnleverantör (jag har testat [Berget AI](https://berget.ai/), en svensk leverantör, mer om det i en framtida post).
 
-<div style="text-align: center">
-<img src="opencode.gif" alt="OpenCode i terminalen">
-
-*OpenCode's text UI. Källa: [OpenCode.ai](https://opencode.ai/)*
-</div>
+{{< figure src="opencode.gif" caption="OpenCode's text UI. Källa: [OpenCode.ai](https://opencode.ai/)" >}}
 
 ## Utvärdering av Gemma 4
 

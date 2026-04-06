@@ -22,11 +22,7 @@ I use Claude Code daily and it is excellent, but I want to be less dependent on 
 
 [OpenCode](https://github.com/anomalyco/opencode) is an open-source terminal coding assistant. Feature-wise it is close to Claude Code, and being open source means the pace of development is decided by the community. OpenCode is quite popular with around 138k stars at the time of writing this. What I really like about OpenCode is the customization. Custom providers, skills, permissions, MCP servers are all there of course. But you can also tweak the TUI a bit more than with other tools. It speaks the OpenAI-compatible API, which means you can point OpenCode at a llama.cpp server and it treats it like any other backend. Or to any provider of your choice (I have been trying out [Berget AI](https://berget.ai/), a Swedish provider, more on that in a future post).
 
-<div style="text-align: center">
-<img src="opencode.gif" alt="OpenCode running in the terminal">
-
-*OpenCode running in the terminal. Source: [OpenCode.ai](https://opencode.ai/)*
-</div>
+{{< figure src="opencode.gif" caption="OpenCode running in the terminal. Source: [OpenCode.ai](https://opencode.ai/)" >}}
 
 ## Evaluating Gemma 4
 
