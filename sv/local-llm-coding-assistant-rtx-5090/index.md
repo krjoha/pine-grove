@@ -60,7 +60,7 @@ Gemma 4-varianter tappar dock 16-19% generationshastighet med det aktiverat till
 
 ## Vinnare: Gemma 4 26B-A4B
 
-Gemma 4 26B-A4B är riktigt snabb att köra på RTX 5090. Med runt 186 tok/s och 0 ping är det en fröjd att prompta! Och med 256K kontext på 25 GB VRAM finns det gott om marginal på kortet för andra saker, som att köra [Infinity](https://github.com/michaelfeil/infinity) med encoder-modeller. Qwen 3.5 35B-A3B som jag kört tidigare är en stark tvåa med liknande hastighet, men Gemmas starka stöd för flera språk och faktumet att Gemma helt enkelt ger bättre svar så får detta bli min nya arbetshäst.
+Gemma 4 26B-A4B är riktigt snabb att köra på RTX 5090. Med runt 186 tok/s och 0 ping är det en fröjd att prompta! Och med 256K kontext på 25 GB VRAM finns det gott om marginal på kortet för andra saker, som att köra [Infinity](https://github.com/michaelfeil/infinity) med encoder-modeller. Qwen 3.5 35B-A3B som jag kört tidigare är en stark tvåa med liknande hastighet, men Gemmas starka stöd för flera språk och faktumet att Gemma helt enkelt ger bättre svar gör att detta blir min nya arbetshäst!
 
 ## llama.cpp-server
 
