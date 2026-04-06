@@ -9,11 +9,11 @@ I run a Proxmox server in my office with an RTX 5090 and wanted to find out if G
 
 | Component | Spec |
 |---|---|
-| CPU | AMD Threadripper 9960X (24 cores, 48 threads) |
+| CPU | AMD Threadripper 9960X |
 | RAM | 192 GB DDR5 |
-| GPU | NVIDIA RTX 5090 32GB VRAM (watercooled) |
-| Driver | NVIDIA 580.105.08, CUDA 13.0 |
-| Host | Proxmox VE 9.1.4 |
+| GPU | NVIDIA RTX 5090 32GB VRAM |
+| Driver | 580.105.08, CUDA 13.0 |
+| Host | Proxmox |
 | Inference | llama.cpp with CUDA in a Debian 13 LXC container |
 
 The goal was to see what works on consumer hardware. I already use Claude Code daily and it is excellent, but I wanted to explore what is possible when you run everything on your own hardware. Privacy is a nice bonus, and so is never hitting a rate limit. 32GB of VRAM fits quantized 30B+ models entirely on the card. Enough for single-user inference at full speed.
@@ -30,15 +30,11 @@ Gemma 4 landed with two variants that fit on the RTX 5090 at Q4 quantization: a 
 
 ### Gemma 4 31B (Dense)
 
-On paper, this model is hard to beat at its size. Google specifically positions it as "optimized for consumer GPUs", which is exactly what I was looking for. It supports 140 languages, handles vision and audio input, and has native function calling support built for agentic workflows.
-
-The benchmarks back it up: LiveCodeBench v6 at 80.0%, GPQA Diamond at 84.3%, and an LMArena ELO of 1452 which puts it near the top for models in this weight class. The agentic tool use benchmark (tau2-bench) scores 86.4%, which is promising for a coding assistant use case.
+On paper, this model is hard to beat at its size. Google positions it as "optimized for consumer GPUs", which is exactly what I was looking for. It supports 140 languages, has native function calling, and the benchmarks look promising: LiveCodeBench v6 at 80.0% and tau2-bench (agentic tool use) at 86.4%.
 
 {{< image src="gemma4-benchmarks.webp" caption="Gemma 4 benchmark comparison. Source: [Google DeepMind](https://deepmind.google/models/gemma/gemma-4/)" >}}
 
-In my testing, code quality was consistently the best of the three models I evaluated. But at 64 tokens per second it is just too slow for interactive coding. When you are waiting on dozens of responses per session, 3x slower than the MoE alternatives gets old fast. Context tops out at 90K tokens with 32GB VRAM.
-
-Great model. Not fast enough on a single RTX 5090 to be a daily driver, but with more GPU power it would be a strong pick.
+Benchmarks only tell part of the story though. You need to test on your own use case. In my testing, code quality was consistently the best of the three models I evaluated. But at 64 tokens per second and a max context of 90K tokens on 32GB VRAM, it is too slow for interactive coding on a single RTX 5090. With more GPU power it would be a strong pick.
 
 ### Gemma 4 26B-A4B (MoE)
 
@@ -47,14 +43,12 @@ The MoE variant trades some of that quality for speed. Only 4B active parameters
 Then I tried tool calling with OpenCode.
 
 {{< admonition type="warning" title="Tool calling failure" open=true >}}
-When OpenCode sends its system prompt (tool definitions, file context, agent instructions), the Gemma 4 MoE model generates natural language *about* calling tools instead of producing the structured tool call JSON. It writes paragraphs explaining that it wants to read a file rather than emitting the function call to do it.
-
-Simple prompts work fine. Real-world agent prompts with complex system messages do not. The 4B active parameters are likely not enough to follow structured output protocols while also reasoning about the actual task.
+With complex system prompts (tool definitions, file context, agent instructions), the model generates text *about* calling tools instead of emitting the structured JSON. Simple prompts work. Real-world agent prompts do not. The 4B active parameters are likely not enough to handle both structured output and task reasoning.
 {{< /admonition >}}
 
 {{< image src="gemma4-tool-calling-fail.webp" caption="Gemma 4 26B-A4B describing a tool call instead of executing it." >}}
 
-This is not a llama.cpp bug. Raw `curl` requests with `--jinja` enabled return correct `tool_calls` JSON. The failure only shows up when the system prompt grows complex enough to overwhelm the model's 4B active parameter budget. The dense 31B and Qwen 3.5 both handle the same prompts correctly. If the MoE variant improves on this front, it could absolutely become the better choice.
+This is not a llama.cpp bug. Raw `curl` requests return correct `tool_calls` JSON. The dense 31B and Qwen 3.5 both handle the same prompts correctly. If the MoE variant improves on this front, it could absolutely become the better choice.
 
 ## How They Compare
 
@@ -79,10 +73,6 @@ Gemma 4 variants lose 16-19% generation speed with it enabled. Qwen 3.5 35B-A3B 
 Qwen 3.5 35B-A3B is a 35B parameter MoE model with 3B active parameters per token. It matches the Gemma MoE on speed (188 tok/s) and handles tool calling correctly. The key differentiator is the zero speed penalty from KV cache quantization. I run it at 131K context which uses 29.4 GB of VRAM and leaves some headroom on the card.
 
 Thinking mode is supported via Jinja templates. I keep it enabled for coding tasks where step-by-step reasoning helps, and disable it when I want faster responses for simpler tasks.
-
-{{< admonition type="success" title="Daily driver found" open=true >}}
-Qwen 3.5 35B-A3B: 188 tok/s, working tool calling, 131K context at 29.4 GB VRAM with q4_1 cache quantization at zero speed penalty. Runs entirely on a single RTX 5090.
-{{< /admonition >}}
 
 ## The Setup
 
@@ -159,13 +149,13 @@ Save this to `~/.config/opencode/opencode.json`:
 }
 ```
 
-The `baseURL` points to the llama.cpp server's OpenAI-compatible endpoint. `apiKey` is `"EMPTY"` because the local server does not require authentication. The `context` limit should match the server's `--ctx-size`. The `npm` field tells OpenCode which AI SDK adapter to use.
+The `baseURL` points to the llama.cpp server. `apiKey` is `"EMPTY"` since the local server has no auth. Match the `context` limit to the server's `--ctx-size`.
 
 ## Lessons from MCP and AGENTS.md
 
-I also experimented with MCP (Model Context Protocol) servers and custom skills in OpenCode. MCP lets you extend the coding assistant with external tools like code analysis, database queries, or API integrations.
+I also experimented with MCP servers and custom skills in OpenCode.
 
-This is where things got interesting. I installed an MCP server from a provider where I was on their standalone subscription, not the full suite. The server came with an `AGENTS.md` file that described all the tools available in the full product, including dozens of tools my subscription did not include. The model had no idea about this mismatch.
+I installed an MCP server from a provider where I was on their standalone subscription, not the full suite. The server came with an `AGENTS.md` file that described all the tools available in the full product, including dozens of tools my subscription did not include. The model had no idea about this mismatch.
 
 I noticed something was off because the thinking tokens were streaming very slowly. When I actually read what the model was thinking about, it was nonsense. It was spending its entire thinking budget searching for tools that were never loaded, reasoning about how to call them, and getting confused when they did not exist.
 
