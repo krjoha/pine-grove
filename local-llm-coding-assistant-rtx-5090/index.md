@@ -1,4 +1,4 @@
-# Building a Local LLM Coding Assistant on an RTX 5090
+# Testing Gemma 4 as a Local Coding Assistant on an RTX 5090
 
 
 I run a server in my office with an RTX 5090 and I wanted to find out if Gemma 4 could be my new daily driver for local code assistance. I spent a day testing models, breaking tool calling and tuning llama.cpp configs. After some initial trouble, Gemma 4 26B-A4B earned the spot.<!--more-->
