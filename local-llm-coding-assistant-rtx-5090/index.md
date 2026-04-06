@@ -34,11 +34,9 @@ Gemma 4 landed with two variants that fit on the RTX 5090 at Q4 quantization: a 
 
 ### Gemma 4 31B (Dense)
 
-On paper this model is hard to beat at its size. Google positions it as "optimized for consumer GPUs", which is exactly what I was looking for. It supports 140 languages and has native function calling. The benchmarks look promising: LiveCodeBench v6 at 80.0% and tau2-bench (agentic tool use) at 86.4%.
+On paper this model is hard to beat at its size. Google positions it as "optimized for consumer GPUs", which is exactly what I was looking for. It supports 140 languages, has native function calling and the benchmarks look promising: LiveCodeBench v6 at 80.0% and tau2-bench (agentic tool use) at 86.4%.
 
-<img src="gemma4-benchmarks.svg" alt="Gemma 4 benchmark comparison" width="800">
-
-*Gemma 4 benchmark comparison. Source: [Google DeepMind](https://deepmind.google/models/gemma/gemma-4/)*
+{{< image src="benchmark.webp" caption="Open-source LLM Pareto frontier. Gemma 4 variants sit near the top. Source: [LM Arena](https://arena.ai/leaderboard/text). See also the [Gemma 4 model card](https://deepmind.google/models/gemma/gemma-4/)." >}}
 
 Benchmarks only tell part of the story though. You need to test on your own use case. In my testing, code quality was consistently the best of the three models I evaluated. But at 64 tokens per second and a max context of 90K tokens on 32GB VRAM, it is too slow for interactive coding on a single RTX 5090. The MoE variant solves this, but with more GPU power the dense model would be a strong pick.
 
