@@ -30,21 +30,21 @@ Gemma 4 kom i många varianter, jag har testat två av dessa som båda ryms på 
 
 ### Gemma 4 31B (Dense)
 
-På pappret är den här modellen riktigt stark för sin storlek. Google positionerar den som "optimized for consumer GPUs", vilket är precis vad jag behöver efter. Modellen stödjer 140 språk, har inbyggt stöd för function calling och benchmarks ser väldigt lovande ut. Mycket god prestanda till lågt pris!
+På pappret är den här modellen riktigt stark för sin storlek. Google positionerar den som "optimized for consumer GPUs", vilket är precis vad jag behöver. Modellen stödjer 140 språk, har inbyggt stöd för function calling och benchmarks ser väldigt lovande ut. Mycket god prestanda till lågt pris!
 
 {{< image src="benchmark.webp" caption="Pareto-front för open source-LLM:er. Gemma 4-varianter ligger nära toppen. Källa: [LM Arena](https://arena.ai/leaderboard/text). Se även [Gemma 4 model card](https://deepmind.google/models/gemma/gemma-4/)." >}}
 
-Generella benchmarks berättar dock bara en del av historien. Man behöver testa och utvärdera på sitt eget specifika användningsfall för att se vad som funkar för dig. I mina tester var kodkvaliteten från 31B varianten genomgående bäst av de tre modellerna jag utvärderade. Men med endast 64 tokens per sekund och ett kontext på max 88K tokens tycker jag att den blev för långsam för interaktiv kodning. Men med mer GPU-kraft hade den här modellen varit ett klockrent val.
+Generella benchmarks berättar dock bara en del av historien. Man behöver testa och utvärdera på sitt eget specifika användningsfall för att se vad som funkar. I mina tester var kodkvaliteten från 31B varianten genomgående bäst av de tre modellerna jag utvärderade. Men med endast 64 tokens per sekund och ett kontext på max 88K tokens tycker jag att den blev för långsam för interaktiv kodning. Men med mer GPU-kraft hade den här modellen varit ett klockrent val.
 
 ### Gemma 4 26B-A4B (MoE)
 
-MoE-varianten offrar lite av kvaliteten i utbyte mot hastighet. Det är de 4B (fyra miljarder) aktiva parametrarna per token som leder till höga 186 tokens per sekund, att jag fick plats med hela 256K kontextet och ändå hade 7GB VRAM till godo. Galet! Kodkvaliteten är ändå ganska snarlik så det känns inte som ett nedbyte.
+MoE-varianten offrar lite av kvaliteten i utbyte mot hastighet. Det är de 4B (fyra miljarder) aktiva parametrarna per token som leder till höga 186 tokens per sekund och att jag fick plats med hela 256K kontextet och ändå hade 7GB VRAM till godo. Galet! Kodkvaliteten är ändå ganska snarlik så det känns inte som ett nedbyte.
 
-Initialt hade jag problem med tool calling i OpenCode. Modellen genererade text *om* att anropa verktyg istället för att skicka det strukturerade JSON-anropet. Det visade sig att jag körde en äldre llama.cpp-build som saknade en [speciell Gemma 4-parser](https://github.com/ggml-org/llama.cpp/pull/21418). Efter uppdatering fungerade tool calling korrekt med komplexa systemprompts i OpenCode. Så om du vill köra Gemma 4, se till att du har en nyare version av llama.cpp som inkluderar denna fix.
+Initialt hade jag problem med tool calling i OpenCode. Modellen genererade text **om** att anropa verktyg istället för att skicka de strukturerade JSON-anropen. Det visade sig att jag körde en äldre llama.cpp-build som saknade en [speciell Gemma 4-parser](https://github.com/ggml-org/llama.cpp/pull/21418). Efter uppdatering fungerade tool calling korrekt med komplexa systemprompts i OpenCode. Så om du vill köra Gemma 4, se till att du har en nyare version av llama.cpp som inkluderar denna fix.
 
 ## Benchmark
 
-Alla modeller använder [Unsloth](https://unsloth.ai/) Q4_K_XL-kvantiseringar. Unsloths dynamiska kvantisering är nyckeln till att köra dessa modeller på VRAM-begränsade system. Nedan är siffror från min hårdvara med mina arbetslaster. Om du testar så kommer ditt resultat att skilja sig beroende på kontextstorlek och hårdvara.
+Alla modeller använder [Unsloth](https://unsloth.ai/) Q4_K_XL-kvantiseringar. Unsloths dynamiska kvantisering är nyckeln till att köra dessa modeller på VRAM-begränsade system. Nedan är siffror från min hårdvara med mina arbetslaster. Om du testar så kommer ditt resultat att skilja sig beroende på din kontextstorlek och din hårdvara.
 
 | Modell | Typ | Aktiva parametrar | Gen tok/s | Max kontext | VRAM | Tool Calling | KV q4_1 hastighet |
 |---|---|---|---|---|---|---|---|
@@ -60,7 +60,7 @@ Gemma 4-varianter tappar dock 16-19% generationshastighet med det aktiverat till
 
 ## Vinnare: Gemma 4 26B-A4B
 
-Gemma 4 26B-A4B är riktigt snabb att köra på RTX 5090. Med runt 186 tok/s och 0 ping är det en fröjd att prompta! Och med 256K kontext på 25 GB VRAM finns det gott om marginal på kortet för andra saker, som att köra [Infinity](https://github.com/michaelfeil/infinity) med encoder-modeller. Qwen 3.5 35B-A3B som jag kört tidigare är en stark tvåa med liknande hastighet, men Gemmas starka stöd för flera språk och faktumet att Gemma helt enkelt ger bättre svar gör att detta blir min nya arbetshäst!
+Gemma 4 26B-A4B är riktigt snabb att köra på RTX 5090. Med runt 186 tok/s och 0 ping är det en fröjd att prompta! Och med 256K kontext på 25 GB VRAM finns det gott om marginal på kortet för andra saker, som att köra [Infinity](https://github.com/michaelfeil/infinity) med encoder-modeller. Qwen 3.5 35B-A3B, som jag kört tidigare, är en stark tvåa med liknande hastighet. Men Gemmas starka stöd för flera språk och faktumet att Gemma helt enkelt ger bättre svar gör att detta blir min nya arbetshäst!
 
 ## llama.cpp-server
 
@@ -166,6 +166,6 @@ Så om något känns fel, använd `/export` för att dumpa hela konversationen t
 
 ## Avslutning
 
-Den största överraskningen med exprimentet var hur mycket varje liten detalj kunde betyda: till en början fungerade Gemma 4 tool calling inte alls, eftersom jag hade en gammal version av llama.cpp. En KV cache-flagga som fungerade utmärkt på en arkitektur försämrade prestandan med 19% på en annan. Och en dålig AGENTS.md-fil slösade bort hälften av thinking-budgeten.
+Den största överraskningen med exprimentet var hur mycket varje liten detalj kunde betyda: till en början fungerade Gemma 4 tool calling inte alls eftersom jag hade en gammal version av llama.cpp. En KV cache-flagga som fungerade utmärkt på en arkitektur försämrade prestandan med 19% på en annan. Och en dålig AGENTS.md-fil slösade bort hälften av thinking-token budgeten.
 
 Lokala modeller lär inte helt ersätta frontier-API:er inom kort, men att en enda konsument-GPU nu kan köra en riktigt användbar kodassistent är rätt grymt. Det var verkligen inte fallet för ett år sedan.

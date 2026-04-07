@@ -40,7 +40,7 @@ Benchmarks only tell part of the story though. You need to test on your own use 
 
 The MoE variant trades some of that quality for speed. Only 4B active parameters per token means 186 tokens per second, and it fits the full 256K context with 7GB of VRAM to spare. Code quality stays close to the dense model.
 
-Initially I had trouble with tool calling. The model would generate text *about* calling tools instead of emitting the structured JSON. It turned out I was running an older llama.cpp build that lacked the [specialized Gemma 4 parser](https://github.com/ggml-org/llama.cpp/pull/21418). After updating, tool calling works correctly with complex system prompts in OpenCode. If you are running Gemma 4, make sure you are on a recent build that includes this fix.
+Initially I had trouble with tool calling. The model would generate text **about** calling tools instead of emitting the structured JSON. It turned out I was running an older llama.cpp build that lacked the [specialized Gemma 4 parser](https://github.com/ggml-org/llama.cpp/pull/21418). After updating, tool calling works correctly with complex system prompts in OpenCode. If you are running Gemma 4, make sure you are on a recent build that includes this fix.
 
 ## Benchmark
 
